@@ -19,15 +19,15 @@ from PIL import Image, ImageDraw
 # Add current directory to path
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
+from config import FFMPEG_PATH
 from puppet_animator import CharacterPuppet
 from particle_system import CoinShowerSystem, OilGeyserSystem, FireworksSystem
 from map_animator import MapEntityAnimator
 from motion_graphics import MotionGraphicsEngine
 
-BASE_DIR = r"c:\Users\shubh\OneDrive\Desktop\animator\uae_history_documentary"
+BASE_DIR = os.path.join(os.getcwd(), "production")
 AUDIO_DIR = os.path.join(BASE_DIR, "audio")
-FFMPEG_PATH = r"C:\Users\shubh\AppData\Local\agy\bin\ffmpeg.exe"
-OUTPUT_VIDEO = os.path.join(BASE_DIR, "history_of_uae_animated.mp4")
+OUTPUT_VIDEO = os.path.join(BASE_DIR, "master_animated.mp4")
 
 
 def build_background(width=1920, height=1080, bg_type="desert"):

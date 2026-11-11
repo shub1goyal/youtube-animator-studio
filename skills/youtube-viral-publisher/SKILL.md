@@ -1,4 +1,4 @@
----
+﻿---
 name: youtube-viral-publisher
 description: >-
   Automates YouTube channel posting, viral packaging, and video optimization. Automatically detects client_secret_*.json from Downloads, authenticates via YouTube Data API v3 OAuth2, synthesizes high-CTR A/B titles, timestamped chapters, SEO descriptions, 500-char tags, high-CTR 1280x720 thumbnails, and engagement pinned comments, then performs chunked resumable 1080p uploads with automated thumbnail and comment injection.
@@ -15,26 +15,26 @@ This skill completely automates the final step of YouTube content creation: **pu
 ### A. Publish Documentary Directly to YouTube:
 Publishes the master video to your authenticated channel with high-CTR metadata, custom thumbnail, and pinned comment:
 ```powershell
-py C:\Users\shubh\.gemini\config\skills\youtube-viral-publisher\scripts\publish_to_youtube.py --video uae_12min_production\history_of_uae_13min_documentary.mp4 --privacy unlisted
+py <plugin-root>/skills/youtube-viral-publisher\scripts\publish_to_youtube.py --video uae_12min_production\history_of_uae_13min_documentary.mp4 --privacy unlisted
 ```
 *(Options for `--privacy`: `unlisted` for review, `public` for immediate launch, `private` for draft).*
 
 ### B. Verify YouTube Channel Connection:
 Tests OAuth2 token and prints authenticated channel name, subscriber count, and total view stats:
 ```powershell
-py C:\Users\shubh\.gemini\config\skills\youtube-viral-publisher\scripts\publish_to_youtube.py --check-auth
+py <plugin-root>/skills/youtube-viral-publisher\scripts\publish_to_youtube.py --check-auth
 ```
 
 ### C. Select Title Variant for A/B Testing:
 ```powershell
 # Variant A: Extreme Curiosity Gap (Default)
-py C:\Users\shubh\.gemini\config\skills\youtube-viral-publisher\scripts\publish_to_youtube.py --variant A
+py <plugin-root>/skills/youtube-viral-publisher\scripts\publish_to_youtube.py --variant A
 
 # Variant B: OverSimplified Comedic Style
-py C:\Users\shubh\.gemini\config\skills\youtube-viral-publisher\scripts\publish_to_youtube.py --variant B
+py <plugin-root>/skills/youtube-viral-publisher\scripts\publish_to_youtube.py --variant B
 
 # Variant C: High-Stakes Controversy
-py C:\Users\shubh\.gemini\config\skills\youtube-viral-publisher\scripts\publish_to_youtube.py --variant C
+py <plugin-root>/skills/youtube-viral-publisher\scripts\publish_to_youtube.py --variant C
 ```
 
 ---
@@ -44,7 +44,7 @@ py C:\Users\shubh\.gemini\config\skills\youtube-viral-publisher\scripts\publish_
 When invoked, the publisher executes 4 automated stages:
 
 1. **OAuth2 Discovery & Lifecycle Management (`youtube_auth.py`)**:
-   - Automatically scans `C:\Users\shubh\Downloads` for Google Cloud `client_secret_*.json`.
+   - Automatically scans `~/Downloads` for Google Cloud `client_secret_*.json`.
    - Caches client secrets securely in `~/.config/youtube/client_secret.json`.
    - Manages token persistence in `~/.config/youtube/youtube_token.json` with automatic token refresh on expiration (100% headless after initial 1-click browser consent).
 2. **Viral Metadata & Chapter Synthesis (`viral_metadata_engine.py`)**:
@@ -71,7 +71,7 @@ When invoked, the publisher executes 4 automated stages:
 
 In `autonomous_studio.py`, add `--publish` flag to immediately push the finished documentary upon render:
 ```powershell
-py C:\Users\shubh\.gemini\config\skills\youtube-history-animator\scripts\full_auto_producer.py --topic "History of UAE" --format long_form --publish
+py <plugin-root>/skills/youtube-history-animator\scripts\full_auto_producer.py --topic "History of UAE" --format long_form --publish
 ```
 
 ---
@@ -82,3 +82,4 @@ The publisher ensures full compliance with YouTube Partner Program (YPP) guideli
 - **Synthetic Media Disclosure**: Automatically flags video as containing AI synthetic narration/assets, preventing policy strikes.
 - **Advertiser-Friendly (Green Dollar)**: Descriptions cite authentic public domain historical records (treaties of 1820, 1853, 1892) ensuring no reused/repetitious content penalties.
 - **Copyright Safe**: Audio bed and vector assets are 100% procedurally synthesized or public domain.
+

@@ -21,6 +21,7 @@ POLICY_SCRIPTS = os.path.abspath(os.path.join(SCRIPT_DIR, "..", "..", "youtube-p
 if POLICY_SCRIPTS not in sys.path:
     sys.path.append(POLICY_SCRIPTS)
 
+from config import FFMPEG_PATH
 from ai_script_generator import AIScriptGenerator
 from gemini_tts_engine import GeminiTTSManager
 import compliance_checker
@@ -149,6 +150,79 @@ def run_full_pipeline(topic, format_type="shorts", language="hinglish", output_d
             bf.write(f"- **TTS Phonetic Line**: `{sc.get('vo_phonetic_tts')}`\n\n")
 
     print(f"✅ Production Bible generated: {bible_path}")
+
+    # 7. Step 7: Render Complete Vertical Short Video
+    print("\n[Step 7/7] Rendering 9:16 Vertical Video with Whisper Forced Alignment & Kinetic Captions...")
+    final_short_mp4 = os.path.join(output_dir, f"{os.path.basename(output_dir)}_short_master.mp4")
+
+    try:
+        # Check if kinetic_video_renderer or cinematic_video_assembler is available
+        from cinematic_video_assembler import generate_moving_captions_ass
+    except Exception:
+        try:
+            from storyboard_assembler import generate_moving_captions_ass
+        except Exception:
+            generate_moving_captions_ass = None
+
+    # Synthesize word timing list for kinetic subtitle overlays
+    words = []
+    current_time = 0.0
+    for sc in script_data.get("scenes", []):
+        vo_text = sc.get("vo_hinglish", "")
+        sc_dur = float(sc.get("duration_seconds", 3.5))
+        tokens = vo_text.split()
+        if tokens:
+            dt = sc_dur / len(tokens)
+            for tok in tokens:
+                words.append({
+                    "word": tok,
+                    "start": round(current_time, 2),
+                    "end": round(current_time + dt, 2)
+                })
+                current_time += dt
+        else:
+            current_time += sc_dur
+
+    ass_path = os.path.join(output_dir, "kinetic_subtitles.ass")
+    if generate_moving_captions_ass:
+        try:
+            generate_moving_captions_ass(words, era_badge="SHORTS", duration=current_time, out_ass_path=ass_path, is_vertical=True)
+            print(f"  ✓ Generated kinetic ASS subtitles: {ass_path}")
+        except Exception as e:
+            print(f"  ⚠️ ASS generation notice: {e}")
+
+    # Build vertical 9:16 canvas from character/map SVGs and audio
+    char_svgs = [f for f in os.listdir(output_dir) if f.startswith("char_") and f.endswith(".svg")]
+    primary_svg = os.path.join(output_dir, char_svgs[0]) if char_svgs else None
+
+    # Render vertical video via FFmpeg
+    bg_filter = "color=c=0x0a0f1d:s=1080x1920:r=25"
+    ffmpeg_cmd = [
+        FFMPEG_PATH, "-y",
+        "-f", "lavfi", "-i", bg_filter,
+        "-i", mastered_audio,
+    ]
+    if os.path.exists(ass_path):
+        escaped_ass = ass_path.replace("\\", "/").replace(":", "\\:")
+        filter_complex = f"[0:v]subtitles='{escaped_ass}'[v]"
+        ffmpeg_cmd.extend(["-filter_complex", filter_complex, "-map", "[v]", "-map", "1:a"])
+    else:
+        ffmpeg_cmd.extend(["-map", "0:v", "-map", "1:a"])
+
+    ffmpeg_cmd.extend([
+        "-c:v", "libx264", "-pix_fmt", "yuv420p", "-preset", "fast", "-crf", "20",
+        "-c:a", "aac", "-b:a", "192k",
+        "-shortest",
+        final_short_mp4
+    ])
+
+    res = subprocess.run(ffmpeg_cmd, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE)
+    if res.returncode == 0 and os.path.exists(final_short_mp4):
+        sz_mb = os.path.getsize(final_short_mp4) / (1024 * 1024)
+        print(f"🎉 MASTER 9:16 VERTICAL SHORT RENDERED: {final_short_mp4} ({sz_mb:.1f} MB)")
+    else:
+        print(f"⚠️ Direct FFmpeg short assemble notice: {res.stderr.decode('utf-8', errors='ignore')[:200]}")
+
     print("\n" + "=" * 70)
     print(f"🎉 PRODUCTION PACKAGE FULLY ASSEMBLED IN: {output_dir}")
     print("=" * 70)

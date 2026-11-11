@@ -44,14 +44,17 @@ def generate_high_ctr_thumbnail(output_path, sprites_dir=None, topic="History of
 
     # 2. Add Chibi Characters
     if not sprites_dir:
-        # Default search path
+        # Default search path relative to plugin root
+        current_dir = os.path.dirname(os.path.abspath(__file__))
         cand = [
-            r"engine_2d\sprites",
-            r"C:\Users\shubh\.gemini\config\skills\youtube-history-animator\scripts\sprites"
+            os.path.join(current_dir, "..", "..", "youtube-history-animator", "scripts", "sprites"),
+            os.path.join(os.getcwd(), "engine_2d", "sprites"),
+            os.path.join(os.getcwd(), "sprites"),
         ]
         for c in cand:
-            if os.path.exists(c):
-                sprites_dir = c
+            c_norm = os.path.normpath(c)
+            if os.path.exists(c_norm):
+                sprites_dir = c_norm
                 break
 
     # Sheikh Zayed on Right (Visionary Leader)

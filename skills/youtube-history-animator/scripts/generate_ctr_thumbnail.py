@@ -11,11 +11,13 @@ OverSimplified / History Matters style:
 
 import os
 import math
+from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
 
-SPRITES_DIR = r"c:\Users\shubh\OneDrive\Desktop\animator\engine_2d\sprites"
-OUT_THUMBNAIL = r"c:\Users\shubh\OneDrive\Desktop\animator\uae_12min_production\thumbnail.jpg"
-ARTIFACT_THUMBNAIL = r"C:\Users\shubh\.gemini\antigravity\brain\42c491fb-d1b2-4020-8a19-3044f8f05305\assets\thumbnail_desert_to_mars.jpg"
+SCRIPT_DIR = Path(__file__).resolve().parent
+SPRITES_DIR = str(SCRIPT_DIR / "sprites")
+OUT_THUMBNAIL = "thumbnail.jpg"
+ARTIFACT_THUMBNAIL = None
 
 W, H = 1280, 720
 

@@ -1,4 +1,4 @@
----
+﻿---
 name: youtube-policy-monetization-guard
 description: >-
   Audits scripts, visual assets, audio, and metadata against YouTube policies, YouTube Partner Program (YPP) guidelines, and AdSense advertiser-friendly standards. Use this skill to prevent demonetization (Yellow Dollar), protect 100% AI-scripted and AI-voiced channels from Reused/Repetitious content penalties, comply with AI synthetic disclosures, and ensure 100% copyright safety using public domain resources.
@@ -13,7 +13,7 @@ This skill ensures your AI-powered animation channel earns and retains full AdSe
 ## 1. Quick Workflow Routing
 
 - **Audit Any Script for Demonetization Triggers**:
-  `py C:\Users\shubh\.gemini\config\skills\youtube-policy-monetization-guard\scripts\compliance_checker.py --file your_script.txt`
+  `py <plugin-root>/skills/youtube-policy-monetization-guard\scripts\compliance_checker.py --file your_script.txt`
 - **AI Voice & Script Monetization Playbook**: Review [AI Voice Monetization Playbook](./references/ai_voice_monetization_guide.md).
 - **Advertiser-Friendly Rules (Battles & Warfare)**: Review [Advertiser-Friendly Rules](./references/advertiser_friendly_rules.md).
 - **YPP Reused Content Defense**: Review [Reused Content Defense](./references/reused_content_defense.md).
@@ -32,3 +32,4 @@ This skill ensures your AI-powered animation channel earns and retains full AdSe
    - Check **"NO"** to the altered/synthetic content prompt during upload. YouTube explicitly states that clearly unrealistic 2D cartoons, vector graphics, and animations are exempt.
 4. **First 15 Seconds Safety Filter**:
    - Zero profanity, zero graphic trauma words ("slaughter", "massacre", "blood"). Lead with curiosity and diplomacy.
+

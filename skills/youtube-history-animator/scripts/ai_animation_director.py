@@ -27,15 +27,15 @@ SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 if SCRIPT_DIR not in sys.path:
     sys.path.insert(0, SCRIPT_DIR)
 
+from config import FFMPEG_PATH
 from physics_rig import PhysicsCharacterPuppet, SpringDamper, RagdollEntity, apply_alpha_edge_rim_light, render_contact_shadow
 from particle_system import CoinShowerSystem, OilGeyserSystem, FireworksSystem
 from map_animator import MapEntityAnimator
 from motion_graphics import MotionGraphicsEngine
 from asset_library import HighFidelityAssetManager
 
-FFMPEG_PATH = r"C:\Users\shubh\AppData\Local\agy\bin\ffmpeg.exe"
-FONT_TITLE = r"C:\Windows\Fonts\segoeuib.ttf"
-FONT_BODY = r"C:\Windows\Fonts\arialbd.ttf"
+FONT_TITLE = r"C:\Windows\Fonts\segoeuib.ttf" if os.path.exists(r"C:\Windows\Fonts\segoeuib.ttf") else None
+FONT_BODY = r"C:\Windows\Fonts\arialbd.ttf" if os.path.exists(r"C:\Windows\Fonts\arialbd.ttf") else None
 
 # Overscan Dimensions for 2.5D Parallax Camera
 OVERSCAN_W = 2160

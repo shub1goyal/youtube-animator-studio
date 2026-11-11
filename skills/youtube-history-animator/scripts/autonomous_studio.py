@@ -23,10 +23,7 @@ SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 if SCRIPT_DIR not in sys.path:
     sys.path.insert(0, SCRIPT_DIR)
 
-SYS_SKILL_SCRIPTS = r"C:\Users\shubh\.gemini\config\skills\youtube-history-animator\scripts"
-if SYS_SKILL_SCRIPTS not in sys.path:
-    sys.path.insert(0, SYS_SKILL_SCRIPTS)
-
+from config import FFMPEG_PATH
 from studio_script_engine import StudioScriptEngine
 from gemini_tts_engine import GeminiTTSManager
 from sound_design_engine import SoundDesignEngine
@@ -34,8 +31,6 @@ from asset_library import HighFidelityAssetManager
 from visual_asset_synthesizer import synthesize_all_missing_assets, build_directors_cut_script
 from ai_animation_director import AIAnimationDirector
 from full_documentary_renderer import get_wav_duration
-
-FFMPEG_PATH = r"C:\Users\shubh\AppData\Local\agy\bin\ffmpeg.exe"
 
 
 def seconds_to_srt(secs):
@@ -53,7 +48,7 @@ class AutonomousStudio:
         self.publish = publish
         self.privacy_status = privacy
         clean_name = "".join(c if c.isalnum() else "_" for c in topic.lower())[:30].strip("_")
-        self.output_dir = output_dir or os.path.join(r"c:\Users\shubh\OneDrive\Desktop\animator", f"{clean_name}_studio_production")
+        self.output_dir = output_dir or os.path.join(os.getcwd(), f"{clean_name}_studio_production")
         os.makedirs(self.output_dir, exist_ok=True)
         self.audio_dir = os.path.join(self.output_dir, "audio")
         os.makedirs(self.audio_dir, exist_ok=True)

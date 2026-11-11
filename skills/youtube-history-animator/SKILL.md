@@ -1,4 +1,4 @@
----
+﻿---
 name: youtube-history-animator
 description: >-
   Directs and orchestrates end-to-end AI-powered production of viral historical and educational 2D animated videos (16:9 long-form and 9:16 vertical Shorts) in the style of OverSimplified, History Matters, and Animated History. PRIMARY LANGUAGE OF CONTENT: HINGLISH FIRST (Conversational Romanized Hindi + English loanwords). Orchestrates dedicated sidecar vector cinematographers (svg-scene-cinematographer) for uncompromised 5-layer volumetric SVGs, Gemini 3.8 Flash TTS (Voice: Charon) with rotating API key pools and audited Hinglish phonetics, automated vector asset rigging, and broadcast audio mastering.
@@ -21,12 +21,12 @@ Run the master end-to-end studio pipeline to generate a complete broadcast-ready
 
 ### Long-Format (10 to 15 Minutes Documentary - Hinglish Default):
 ```powershell
-py C:\Users\shubh\.gemini\config\skills\youtube-history-animator\scripts\full_auto_producer.py --topic "History of UAE" --format long_form --mins 12 --lang hinglish --out uae_documentary
+py <plugin-root>/skills/youtube-history-animator\scripts\full_auto_producer.py --topic "History of UAE" --format long_form --mins 12 --lang hinglish --out uae_documentary
 ```
 
 ### Viral YouTube Short (60s Vertical Video - Hinglish Default):
 ```powershell
-py C:\Users\shubh\.gemini\config\skills\youtube-history-animator\scripts\full_auto_producer.py --topic "How America Bought Louisiana for $15M" --format shorts --lang hinglish --out louisiana_short
+py <plugin-root>/skills/youtube-history-animator\scripts\full_auto_producer.py --topic "How America Bought Louisiana for $15M" --format shorts --lang hinglish --out louisiana_short
 ```
 
 ---
@@ -212,22 +212,25 @@ All master scene illustrations (1920x1080) follow the rigorous 5-layer volumetri
 6. **Layer 5: `#layer-vfx`**: Storytelling VFX (soundwaves, Morse code `• • • —`, whispered quotes), dual-temperature floating dust motes, foreground framing silhouette arch (creating 2.5D keyhole depth), heavy radial vignette, and procedural film grain overlay.
 - Reference: [Cinematic SVG Mastery Guide](./references/cinematic_svg_mastery.md)
 
-### F. Two Coordinated Sidecar Dispatch Orchestration (`svg-scene-cinematographer` + `kinetic-beat-choreographer`)
-To prevent context window bloat and quality degradation when producing 10–15 minute long-form documentaries (which require 35–54 intricate 5-layer SVGs and precise Whisper synchronization), the production pipeline dispatches work across **2 coordinated sidecar subagents per Act cluster**:
+### F. Sidecar Dispatch Orchestration (`svg-scene-cinematographer` + `kinetic-beat-choreographer`)
+To prevent context window bloat and quality degradation when producing 10–20 minute long-form documentaries (which require intricate 5-layer SVGs, multi-shot cuts, and millisecond Whisper synchronization), the production pipeline dispatches work across dedicated sidecar subagents:
+
 1. **`svg-scene-cinematographer`**:
    - Dedicated sidecar vector illustrator responsible for generating the master `1920x1080` 5-layer volumetric SVGs with full architectural depth, tileable stone/brick/panel patterns, motivated volumetric god-rays and rim lighting, and crafted Bezier props.
-   - Compiles every SVG into a pristine 1080p transparent PNG via headless Chrome.
+   - Outputs for each assigned scene:
+     - `scene_X_stage.svg` (or `scene_X.svg`): 5-layer volumetric vector master.
+     - `scene_X_shots.json`: Sequence of 5–18 cinematic shots bound strictly to Whisper sentence boundaries.
+     - `scene_X_movie.html`: Interactive Playwright player implementing `window.seekToTime(t)` with dynamic camera pans/zooms and shallow DOF blur modulation.
+   - **Granularity Rule**: **1 Scene per assignment** for complex multi-shot documentary scenes (or at most 2 for lightweight scenes). Dedicate 100% of the subagent token budget to complete, unminified markup.
+   - **Rendering Mode**: Video rendering is executed by deterministic frame-stepping (`kinetic_video_renderer.py` / `ai_animation_director.py`), NOT by static `t=0` PNG screenshots.
+
 2. **`kinetic-beat-choreographer`**:
    - Action and timing director that cross-references `faster-whisper` word timestamps (10ms granularity) with narrative visual cues to generate `scene_beat_sheets.json`.
    - Programs progressive typewriter equation/map reveal wipe masks, MapLore comic alert popups (`!!`/`?!`), curved-pointer dialogue callouts, and micro-physics triggers (Bohr orbital rotation, flask bubbles, camera zooms).
 
 > [!IMPORTANT]
-> **MANDATORY GRANULARITY RULE: MAXIMUM 2 SCENES PER SIDECAR AGENT**
-> Generating a complete, uncompressed 1920x1080 SVG with rich `<defs>`, architectural stone/bunker textures, dual-temperature lighting rays, Erlenmeyer glassware, OverSimplified character rigs, and MapLore overlays consumes substantial LLM token output (2,500–4,000 tokens per SVG).
-> **NEVER assign more than 2 scenes to a single `svg-scene-cinematographer` subagent.**
-> - Assigning 3+ scenes causes token exhaustion, truncated markup, or simplified flat clipart.
-> - The parent orchestrator MUST chunk scene requests into micro-batches of **at most 2 scenes per subagent** (e.g. Scenes 1–2 $\rightarrow$ Sidecar 1, Scenes 3–4 $\rightarrow$ Sidecar 2, Scenes 5–6 $\rightarrow$ Sidecar 3).
-> - Multiple sidecar agents run concurrently in isolated context windows.
+> **MANDATORY ARCHITECTURAL RULE: DETERMINISTIC 2.5D MOVIE ENGINE**
+> Every scene generated by `svg-scene-cinematographer` produces `scene_X_movie.html` alongside `scene_X_shots.json`. The video rendering engine steps through time slices via `window.seekToTime(t)`, capturing all CSS keyframes, character breathing/blinking cycles, mouth visemes, and camera matrix pans/zooms on every single frame at 25 FPS. Zero static holds or frozen t=0 screenshots.
 
 - **Independent Context Windows**: Each sidecar runs in an isolated conversation context, eliminating token exhaustion.
 - **Reactive Wakeup Orchestration**: The parent agent dispatches all micro-batches asynchronously without polling; Antigravity's reactive messaging system awakens the parent when subagents complete asset compilation.
@@ -385,14 +388,14 @@ invoke_subagent(
 ### B. Master 5-Layer Volumetric Vector Scene Generator (CLI Standalone)
 Generate complete 1920x1080 broadcast-grade cinematic vector scenes or rasterize them to transparent PNG:
 ```powershell
-py C:\Users\shubh\.gemini\config\plugins\youtube-animator-studio\skills\youtube-history-animator\scripts\cinematic_svg_engine.py --scene "ww2_cellar_resistance" --out "scene_cellar.svg" --rasterize "scene_cellar.png"
+py <plugin-root>/skills\youtube-history-animator\scripts\cinematic_svg_engine.py --scene "ww2_cellar_resistance" --out "scene_cellar.svg" --rasterize "scene_cellar.png"
 ```
 - Reference: [Cinematic SVG Mastery: The 5-Layer Volumetric Standard](./references/cinematic_svg_mastery.md)
 
 ### C. AI Script Generator (Hinglish-First Master Engine)
 Generates high-retention viral scripts with phonetic markers (defaults to Hinglish):
 ```powershell
-py C:\Users\shubh\.gemini\config\plugins\youtube-animator-studio\skills\youtube-history-animator\scripts\ai_script_generator.py --topic "Battle of Plassey" --format long_form --mins 12 --lang hinglish --out script.json
+py <plugin-root>/skills\youtube-history-animator\scripts\ai_script_generator.py --topic "Battle of Plassey" --format long_form --mins 12 --lang hinglish --out script.json
 ```
 - Reference: [Hinglish Phonetics Guide](./references/hinglish_phonetics_guide.md)
 - Reference: [Viral Scripting Framework](./references/viral_scripting_framework.md)
@@ -400,15 +403,15 @@ py C:\Users\shubh\.gemini\config\plugins\youtube-animator-studio\skills\youtube-
 ### D. Gemini 3.8 Flash TTS Engine (Voice: Charon, Hinglish Calibrated)
 Synthesizes voiceovers with automatic key rotation and phonetic optimization:
 ```powershell
-py C:\Users\shubh\.gemini\config\plugins\youtube-animator-studio\skills\youtube-history-animator\scripts\gemini_tts_engine.py --text "Bhai suno! 1803 mayn sabse bada lafda hua!" --out voice.wav
+py <plugin-root>/skills\youtube-history-animator\scripts\gemini_tts_engine.py --text "Bhai suno! 1803 mayn sabse bada lafda hua!" --out voice.wav
 ```
 - Reference: [AI Voice Monetization Playbook](./references/ai_voice_monetization_guide.md)
 
 ### E. Cinematic Character & Map Vector Generators
 - Generate custom Chibi Character SVGs with directional rim lighting and poses:
-  `py C:\Users\shubh\.gemini\config\plugins\youtube-animator-studio\skills\youtube-history-animator\scripts\character_rig_generator.py --name resistance_fighter --expression intense_dread --pose ear_listening --rim-color "#f59e0b" --out char.svg`
+  `py <plugin-root>/skills\youtube-history-animator\scripts\character_rig_generator.py --name resistance_fighter --expression intense_dread --pose ear_listening --rim-color "#f59e0b" --out char.svg`
 - Generate Vintage Historical Map SVGs:
-  `py C:\Users\shubh\.gemini\config\plugins\youtube-animator-studio\skills\youtube-history-animator\scripts\map_svg_generator.py --out map.svg`
+  `py <plugin-root>/skills\youtube-history-animator\scripts\map_svg_generator.py --out map.svg`
 - Reference: [2D Animation Production Pipeline](./references/animation_pipeline.md)
 
 ---
@@ -548,3 +551,4 @@ Before Playwright frame-stepping or FFmpeg encoding starts, an automated audit m
 2. Verify variance between shot durations is $> 0.5\text{s}$ (flags any attempt at uniform linear division).
 3. Verify maximum offset between subtitle end and sentence audio end is $\le 100\text{ms}$.
 4. If drift $> 0.2\text{s}$ is detected, pipeline halts with `IncompleteAlignmentError`.
+

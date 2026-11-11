@@ -25,13 +25,12 @@ SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 if SCRIPT_DIR not in sys.path:
     sys.path.insert(0, SCRIPT_DIR)
 
+from config import FFMPEG_PATH
 from physics_rig import PhysicsCharacterPuppet, SpringDamper, RagdollEntity
 from particle_system import CoinShowerSystem, OilGeyserSystem, FireworksSystem
 from map_animator import MapEntityAnimator
 from motion_graphics import MotionGraphicsEngine
 from asset_library import HighFidelityAssetManager
-
-FFMPEG_PATH = r"C:\Users\shubh\AppData\Local\agy\bin\ffmpeg.exe"
 
 
 def get_wav_duration(wav_path):

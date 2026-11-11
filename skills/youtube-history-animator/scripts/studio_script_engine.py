@@ -15,25 +15,35 @@ import time
 import urllib.request
 import urllib.error
 
-# Import the phonetic engine from skill scripts
-SYS_SKILL_SCRIPTS = r"C:\Users\shubh\.gemini\config\skills\youtube-history-animator\scripts"
-if SYS_SKILL_SCRIPTS not in sys.path:
-    sys.path.insert(0, SYS_SKILL_SCRIPTS)
-
+# Import configuration and phonetic engine
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from config import get_gemini_api_keys
 from gemini_tts_engine import HinglishPhoneticEngine
-
-DEFAULT_KEYS_PATH = r"c:\Users\shubh\OneDrive\Desktop\animator\api_keys.json"
 
 
 class StudioScriptEngine:
-    def __init__(self, keys_file=DEFAULT_KEYS_PATH, model="gemini-2.5-flash-lite"):
-        self.keys_file = keys_file
+    def __init__(self, keys_file=None, model="gemini-2.5-flash-lite"):
         self.model = model
         self.models = ["gemini-2.5-flash-lite", "gemini-3.1-flash-lite", "gemini-3.5-flash-lite", "gemini-2.5-flash"]
         self.phonetic_engine = HinglishPhoneticEngine()
-        with open(keys_file, "r") as f:
-            raw_keys = json.load(f)
-        self.keys = [k for k in raw_keys if k.startswith("AIzaSy")]
+        
+        raw_keys = []
+        if keys_file and os.path.isfile(keys_file):
+            try:
+                with open(keys_file, "r", encoding="utf-8") as f:
+                    data = json.load(f)
+                    if isinstance(data, list):
+                        raw_keys = data
+                    elif isinstance(data, dict):
+                        raw_keys = data.get("gemini_api_keys", []) or data.get("keys", [])
+            except Exception:
+                raw_keys = []
+        if not raw_keys:
+            raw_keys = get_gemini_api_keys()
+
+        self.keys = [str(k).strip() for k in raw_keys if str(k).strip()]
+        if not self.keys:
+            self.keys = ["DUMMY_KEY_SET_GEMINI_API_KEY"]
         self.current_key_idx = 0
 
     def get_next_key(self):

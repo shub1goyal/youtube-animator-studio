@@ -11,8 +11,9 @@ import math
 import subprocess
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from config import CHROME_PATH
 SPRITES_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "sprites")
-CHROME_PATH = r"C:\Program Files\Google\Chrome\Application\chrome.exe"
 os.makedirs(SPRITES_DIR, exist_ok=True)
 
 HIGH_FIDELITY_SVGS = {
@@ -381,12 +382,7 @@ class HighFidelityAssetManager:
             ]
             try:
                 subprocess.run(cmd, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-                # Crop bounding box of non-transparent pixels
-                im = Image.open(out_png)
-                bbox = im.getbbox()
-                if bbox:
-                    im = im.crop(bbox)
-                    im.save(out_png)
+                # Keep fixed coordinate canvas intact without cropping bounding box
                 self.cached_images[name] = Image.open(out_png).convert("RGBA")
             except Exception as e:
                 print(f"Warning: Failed to rasterize {name}: {e}")

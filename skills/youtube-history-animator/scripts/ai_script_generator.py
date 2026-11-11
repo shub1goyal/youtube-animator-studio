@@ -17,25 +17,35 @@ import urllib.error
 import time
 import argparse
 
-# Import the phonetic engine
+# Import configuration and phonetic engine
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from config import get_gemini_api_keys
 from gemini_tts_engine import HinglishPhoneticEngine
-
-DEFAULT_KEYS_PATH = r"c:\Users\shubh\OneDrive\Desktop\animator\api_keys.json"
 
 
 class AIScriptGenerator:
-    def __init__(self, keys_file=DEFAULT_KEYS_PATH, model="gemini-2.5-flash"):
-        self.keys_file = keys_file
+    def __init__(self, keys_file=None, model="gemini-2.5-flash"):
         self.model = model
         self.phonetic_engine = HinglishPhoneticEngine()
-        with open(keys_file, "r") as f:
-            raw_keys = json.load(f)
-        # Prioritize working keys
-        fastest_first = ["AIzaSyD9NDYTDEtXkf41zHHuGO_qjpLdevCQFv0"]
-        aiza_keys = [k for k in raw_keys if k.startswith("AIzaSy") and k not in fastest_first]
-        other_keys = [k for k in raw_keys if not k.startswith("AIzaSy")]
-        self.keys = fastest_first + aiza_keys + other_keys
+        
+        raw_keys = []
+        if keys_file and os.path.isfile(keys_file):
+            try:
+                with open(keys_file, "r", encoding="utf-8") as f:
+                    data = json.load(f)
+                    if isinstance(data, list):
+                        raw_keys = data
+                    elif isinstance(data, dict):
+                        raw_keys = data.get("gemini_api_keys", []) or data.get("keys", [])
+            except Exception:
+                raw_keys = []
+        if not raw_keys:
+            raw_keys = get_gemini_api_keys()
+
+        self.keys = [str(k).strip() for k in raw_keys if str(k).strip()]
+        if not self.keys:
+            # Fallback mock placeholder if operating offline or testing
+            self.keys = ["DUMMY_KEY_SET_GEMINI_API_KEY"]
         self.current_key_idx = 0
 
     def get_next_key(self):

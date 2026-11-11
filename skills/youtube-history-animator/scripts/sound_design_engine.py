@@ -11,8 +11,9 @@ import numpy as np
 from scipy.io import wavfile
 
 SR = 44100
-SFX_DIR = r"c:\Users\shubh\OneDrive\Desktop\animator\engine_2d\sfx"
-BASE_DIR = r"c:\Users\shubh\OneDrive\Desktop\animator\uae_history_documentary"
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+SFX_DIR = os.path.join(SCRIPT_DIR, "sfx")
+BASE_DIR = os.path.join(os.getcwd(), "production")
 AUDIO_DIR = os.path.join(BASE_DIR, "audio")
 
 os.makedirs(SFX_DIR, exist_ok=True)

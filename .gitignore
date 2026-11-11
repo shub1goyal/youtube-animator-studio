@@ -1,30 +1,52 @@
-# Python cache
+# Python cache & compiled files
 __pycache__/
+*.py[cod]
+*$py.class
 *.pyc
 *.pyo
 *.pyd
 .Python
+env/
+venv/
+.venv/
 
-# Secrets & tokens (NEVER commit these)
+# Secrets, API keys & OAuth tokens (MANDATORY EXCLUSIONS)
 *token*.json
 *secret*.json
 client_secret*.json
 youtube_token.json
+api_keys.json
 *.env
 .env*
+*.pem
+*.key
 
-# OS
+# OS & IDE metadata
 .DS_Store
 Thumbs.db
 desktop.ini
+.vscode/
+.idea/
 
-# Logs
+# Logs & temp files
 *.log
+*.tmp
+temp_renders/
+render_cache/
 
-# Build artifacts
+# Video & audio rendering outputs (keep repo light & portable)
 *.mp4
 *.wav
 *.mp3
+*.mov
+*.avi
+*.mkv
+output/
+deterministic_segments/
+productions/
+test/
+
+# Packaging & dist
 *.egg-info/
 dist/
 build/

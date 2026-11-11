@@ -15,7 +15,7 @@ import math
 from PIL import Image, ImageDraw
 
 SPRITES_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "sprites")
-ASSETS_DIR = r"c:\Users\shubh\OneDrive\Desktop\animator\uae_history_documentary\assets"
+ASSETS_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "assets")
 
 
 class MapEntityAnimator:
