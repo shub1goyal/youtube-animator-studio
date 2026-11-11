@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+      <path d="M 20 40 L 45 40 L 55 50 L 100 50 L 100 90 L 20 90 Z" fill="#f59e0b" stroke="#050608" stroke-width="4.5" stroke-linejoin="round"/>
+      <rect x="30" y="52" width="60" height="30" rx="3" fill="#fef3c7" stroke="#050608" stroke-width="2.5"/>
+      <line x1="38" y1="62" x2="82" y2="62" stroke="#d97706" stroke-width="2.5"/>
+      <line x1="38" y1="72" x2="70" y2="72" stroke="#d97706" stroke-width="2.5"/>
+      <text x="60" y="80" font-family="Arial" font-size="10" font-weight="bold" fill="#dc2626" text-anchor="middle">TOP SECRET</text>
+    </svg>

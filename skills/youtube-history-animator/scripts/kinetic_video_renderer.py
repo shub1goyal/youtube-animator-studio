@@ -81,7 +81,7 @@ def render_scene_worker(scene_id, prod_dir, fps=25, force=False, quality=95):
     # Audio duration
     dur = get_audio_duration(str(wav_file)) if wav_file else 0.0
     if dur <= 0.0:
-        # Check shots file for fallback duration
+        # Check shots file or HTML file for fallback duration
         shots_file = prod_path / f"scene_{scene_id}_shots.json"
         if shots_file.is_file():
             try:
@@ -90,8 +90,21 @@ def render_scene_worker(scene_id, prod_dir, fps=25, force=False, quality=95):
                     shots = json.load(f)
                     dur = sum(float(s.get("duration", 0)) for s in shots)
             except Exception:
+                dur = 0.0
+
+        if dur <= 0.0 and html_file and html_file.is_file():
+            try:
+                import re, json
+                with open(html_file, "r", encoding="utf-8") as f:
+                    c = f.read()
+                    match = re.search(r'const\s+SHOTS\s*=\s*(\[.*?\]);', c, re.DOTALL)
+                    if match:
+                        shots = json.loads(match.group(1))
+                        dur = max([float(s.get("end", 0)) for s in shots] + [sum(float(s.get("duration", 0)) for s in shots)] + [10.0])
+            except Exception:
                 dur = 10.0
-        else:
+
+        if dur <= 0.0:
             dur = 10.0
 
     total_frames = int(math.ceil(dur * fps))

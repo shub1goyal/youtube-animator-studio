@@ -7,6 +7,7 @@ dark tactical ocean grid, glowing target country highlights, radar pings, and an
 """
 
 import os
+import re
 import math
 import json
 import urllib.request
@@ -64,6 +65,60 @@ def load_world_geojson():
         except Exception:
             pass
     return None
+
+
+COUNTRY_ALIASES = {
+    "cuba": "Cuba",
+    "havana": "Cuba",
+    "united states": "United States of America",
+    "united states of america": "United States of America",
+    "usa": "United States of America",
+    "america": "United States of America",
+    "washington": "United States of America",
+    "soviet": "Russia",
+    "ussr": "Russia",
+    "russia": "Russia",
+    "moscow": "Russia",
+    "kremlin": "Russia",
+    "britain": "United Kingdom",
+    "uk": "United Kingdom",
+    "united kingdom": "United Kingdom",
+    "england": "United Kingdom",
+    "london": "United Kingdom",
+    "france": "France",
+    "paris": "France",
+    "germany": "Germany",
+    "berlin": "Germany",
+    "poland": "Poland",
+    "india": "India",
+    "delhi": "India",
+    "china": "China",
+    "beijing": "China",
+    "japan": "Japan",
+    "tokyo": "Japan",
+    "uae": "United Arab Emirates",
+    "dubai": "United Arab Emirates",
+    "abu dhabi": "United Arab Emirates"
+}
+
+
+def extract_countries_from_text(text):
+    """
+    Scans narration/subtitle text and extracts matching formal country names from world_countries.geojson.
+    """
+    if not text:
+        return []
+    text_lower = text.lower()
+    detected = []
+    # Check multi-word aliases first, then single-word
+    sorted_aliases = sorted(COUNTRY_ALIASES.items(), key=lambda x: len(x[0]), reverse=True)
+    for alias, formal_name in sorted_aliases:
+        # Whole-word or regex check
+        pattern = r'\b' + re.escape(alias) + r'\b'
+        if re.search(pattern, text_lower):
+            if formal_name not in detected:
+                detected.append(formal_name)
+    return detected
 
 
 class GeoJsonMapEngine:

@@ -6,6 +6,7 @@ with GSAP-style multi-plane camera easing, skeletal IK puppets, tactile map cuta
 """
 
 import os
+import re
 import sys
 import json
 import math
@@ -17,8 +18,9 @@ from xml.sax.saxutils import escape as xml_escape
 # Local config import
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from config import CHROME_PATH
-from geojson_map_engine import GeoJsonMapEngine
+from geojson_map_engine import GeoJsonMapEngine, extract_countries_from_text
 from hybrid_asset_generator import HybridAssetGenerator
+from vector_prop_library import VectorPropLibrary
 
 
 class CinematicSvgEngine:
@@ -132,7 +134,43 @@ class CinematicSvgEngine:
 
     @classmethod
     def draw_animated_prop(cls, prop_type, x, y, scale=1.0):
-        """Draws rich animated hero props with micro-physics classes."""
+        """Draws rich animated hero props using vector_prop_library Iconify integration and parametric vector Bezier."""
+        if prop_type == "war_briefing_table":
+            # 3D Perspective Heavy Briefing Table (Waist height, 160px tall, Y: 740..900)
+            svg = f'<g id="prop-briefing-table" transform="translate({x}, {y}) scale({scale})">\n'
+            svg += '  <!-- Ground Contact Shadow -->\n'
+            svg += '  <ellipse cx="0" cy="145" rx="380" ry="24" fill="#020408" opacity="0.8"/>\n'
+            svg += '  <!-- Table Legs with Metallic Base -->\n'
+            svg += '  <rect x="-310" y="25" width="34" height="120" rx="3" fill="#0f172a" stroke="#050608" stroke-width="5"/>\n'
+            svg += '  <rect x="276" y="25" width="34" height="120" rx="3" fill="#0f172a" stroke="#050608" stroke-width="5"/>\n'
+            svg += '  <rect x="-17" y="25" width="34" height="120" rx="3" fill="#090d16" stroke="#050608" stroke-width="5"/>\n'
+            # 3D Trapezoidal Top Surface
+            svg += '  <!-- 3D Trapezoidal Tabletop -->\n'
+            svg += '  <polygon points="-360,25 360,25 320,-35 -320,-35" fill="#334155" stroke="#050608" stroke-width="6"/>\n'
+            svg += '  <!-- Front Beveled Apron -->\n'
+            svg += '  <rect x="-360" y="25" width="720" height="30" rx="4" fill="#1e293b" stroke="#050608" stroke-width="6"/>\n'
+            # Tabletop Inset Tactical Map Pad
+            svg += '  <polygon points="-160,20 160,20 140,-25 -140,-25" fill="#fef08a" opacity="0.9" stroke="#050608" stroke-width="3"/>\n'
+            # Status Lights Panel on Table Front
+            svg += '  <circle cx="-310" cy="40" r="5" fill="#22c55e"/>\n'
+            svg += '  <circle cx="-290" cy="40" r="5" fill="#ef4444"/>\n'
+            svg += '  <circle cx="-270" cy="40" r="5" fill="#facc15"/>\n'
+            svg += '</g>\n'
+            return svg
+
+        # Check vector_prop_library for rich SVG prop
+        prop_svg = VectorPropLibrary.get_prop_svg(prop_type, width=int(120*scale), height=int(120*scale))
+        if prop_svg and "<svg" in prop_svg:
+            clean_markup = prop_svg
+            # Strip outer <svg ...> and </svg> to embed neatly into a <g>
+            clean_markup = re.sub(r'<\?xml[^>]*\?>', '', clean_markup)
+            clean_markup = re.sub(r'<svg[^>]*>', '', clean_markup, count=1)
+            clean_markup = re.sub(r'</svg>\s*$', '', clean_markup)
+            svg = f'<g id="prop-{prop_type}" transform="translate({x}, {y}) scale({scale})">\n'
+            svg += clean_markup
+            svg += '\n</g>\n'
+            return svg
+
         if prop_type == "erlenmeyer_flask":
             svg = f'<g id="prop-erlenmeyer" transform="translate({x}, {y}) scale({scale})">\n'
             svg += '  <polygon points="-12,-60 12,-60 45,30 -45,30" fill="#38bdf8" opacity="0.35" stroke="#090a0f" stroke-width="4"/>\n'
@@ -254,8 +292,9 @@ class CinematicSvgEngine:
                 "bg_color": "#0d1117",
                 "pattern": "brick-wall-pattern",
                 "props": [
-                    {"type": "vacuum_tube_radio", "x": 340, "y": 820, "scale": 1.3},
-                    {"type": "war_briefing_table", "x": 960, "y": 870, "scale": 1.0}
+                    {"type": "war_briefing_table", "x": 960, "y": 760, "scale": 1.0},
+                    {"type": "hotline_phone", "x": 840, "y": 710, "scale": 0.85},
+                    {"type": "map_folder", "x": 1080, "y": 715, "scale": 0.85}
                 ],
                 "characters": [
                     {"cx": 580, "cy": 890, "name": "Commander", "pose": "ear_listening", "body_color": "#1e3a8a", "rim_color": "#ef4444", "rim_side": "left"},
@@ -280,14 +319,35 @@ class CinematicSvgEngine:
         svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">\n'
         svg += cls.get_standard_defs()
 
+        # Check if an AI-synthesized background or procedural SVG environment exists
+        ai_bg_data_uri = scene_dict.get("ai_background_uri")
+        if not ai_bg_data_uri:
+            # Attempt to fetch/load free Flux background or cached background
+            ai_bg_data_uri = HybridAssetGenerator.fetch_free_ai_background(
+                scene_dict.get("title", "command bunker war room interior"),
+                env_type="war_room_bunker"
+            )
+
         # LAYER 1: Deep Volumetric Background
         svg += '  <g id="layer-bg" filter="url(#bg-gaussian-node)">\n'
-        svg += f'    <rect width="1920" height="1080" fill="{bg_color}"/>\n'
-        svg += f'    <rect width="1920" height="1080" fill="url(#{pattern})" opacity="0.65"/>\n'
-        svg += '    <path d="M 0 0 L 240 0 L 240 1080 L 0 1080 Z" fill="#0b0806" opacity="0.72"/>\n'
-        svg += '    <path d="M 1680 0 L 1920 0 L 1920 1080 L 1680 1080 Z" fill="#0b0806" opacity="0.72"/>\n'
-        svg += '    <rect x="0" y="880" width="1920" height="200" fill="#080604"/>\n'
-        svg += '    <line x1="0" y1="880" x2="1920" y2="880" stroke="#1f1812" stroke-width="4"/>\n'
+        if ai_bg_data_uri:
+            svg += f'    <image href="{ai_bg_data_uri}" width="1920" height="1080" preserveAspectRatio="xMidYMid slice"/>\n'
+            svg += '    <rect width="1920" height="1080" fill="#000000" opacity="0.15"/>\n'
+        else:
+            svg += f'    <rect width="1920" height="1080" fill="{bg_color}"/>\n'
+            svg += f'    <rect width="1920" height="1080" fill="url(#{pattern})" opacity="0.65"/>\n'
+            # Center-Wall Focal Element: Giant Illuminated DEFCON Tactical Monitor
+            svg += '    <rect x="460" y="120" width="1000" height="460" rx="8" fill="#021f18" stroke="#0f172a" stroke-width="6"/>\n'
+            svg += '    <rect x="475" y="135" width="970" height="430" rx="4" fill="#01140f" stroke="#047857" stroke-width="2"/>\n'
+            svg += '    <text x="960" y="175" font-family="monospace" font-size="22" fill="#34d399" font-weight="900" text-anchor="middle" letter-spacing="2">DEFCON 2 • STRATEGIC THEATER COMMAND</text>\n'
+            svg += '    <circle cx="960" cy="360" r="140" fill="none" stroke="#059669" stroke-width="1.5" stroke-dasharray="6,6"/>\n'
+            svg += '    <circle cx="960" cy="360" r="70" fill="none" stroke="#059669" stroke-width="1.5"/>\n'
+            svg += '    <line x1="780" y1="360" x2="1140" y2="360" stroke="#059669" stroke-width="1.5"/>\n'
+            # Side panels
+            svg += '    <path d="M 0 0 L 240 0 L 240 1080 L 0 1080 Z" fill="#0b0806" opacity="0.72"/>\n'
+            svg += '    <path d="M 1680 0 L 1920 0 L 1920 1080 L 1680 1080 Z" fill="#0b0806" opacity="0.72"/>\n'
+            svg += '    <rect x="0" y="880" width="1920" height="200" fill="#080604"/>\n'
+            svg += '    <line x1="0" y1="880" x2="1920" y2="880" stroke="#1f1812" stroke-width="4"/>\n'
         svg += '  </g>\n\n'
 
         # LAYER 2: Midground Props
@@ -300,10 +360,10 @@ class CinematicSvgEngine:
         # exclusively as Canvas skeletal puppets in generate_interactive_movie_html() to
         # prevent ghost-clone duplicates (static SVG chars behind canvas actors).
 
-        # LAYER 4: Atmospheric Lighting & Alert
+        # LAYER 4: Atmospheric Lighting & Alert (Soft Radial Pools, NO harsh V-triangle cones)
         svg += '  <g id="layer-lighting">\n'
-        svg += '    <polygon points="0,0 720,0 1100,1080 0,1080" fill="url(#warm-volumetric-beam)"/>\n'
-        svg += '    <polygon points="1920,0 1200,0 820,1080 1920,1080" fill="url(#cool-window-spill)"/>\n'
+        svg += '    <circle cx="580" cy="500" r="480" fill="url(#warm-volumetric-beam)" opacity="0.3" filter="url(#glow-gold)"/>\n'
+        svg += '    <circle cx="1340" cy="500" r="480" fill="url(#cool-window-spill)" opacity="0.25" filter="url(#glow-teal)"/>\n'
         svg += '    <g class="svg-anim-dust">\n'
         svg += '      <circle cx="520" cy="380" r="3.5" fill="#fef08a" opacity="0.75" filter="url(#glow-gold)"/>\n'
         svg += '      <circle cx="1120" cy="410" r="3.0" fill="#38bdf8" opacity="0.7" filter="url(#glow-teal)"/>\n'
@@ -340,10 +400,21 @@ class CinematicSvgEngine:
         svg_content = cls.generate_scene(scene_dict)
         shots_json_str = json.dumps(shots_list or [])
 
+        # Detect target countries from scene shots narration for smart GeoJSON map
+        detected_countries = []
+        for s in (shots_list or []):
+            if s.get("text"):
+                for c in extract_countries_from_text(s["text"]):
+                    if c not in detected_countries:
+                        detected_countries.append(c)
+
         # Generate companion tactical map cutaway SVG from GeoJsonMapEngine
+        map_region = "cuba_missile" if any("cuba" in c.lower() for c in detected_countries) else "cold_war"
         map_svg_content = GeoJsonMapEngine.render_map_cutaway_svg(
-            region="europe",
+            region=map_region,
+            highlight_countries=detected_countries if detected_countries else None,
             highlight_color="#38bdf8",
+            target_color="#ef4444",
             title=f"STRATEGIC MAP • {scene_dict.get('era_badge', 'TACTICAL THEATER')}"
         )
 
@@ -401,6 +472,19 @@ class CinematicSvgEngine:
     .sub-highlight {{
       color: #facc15; display: inline-block; transform: scale(1.12);
     }}
+    #comic-alert-badge {{
+      position: absolute; left: 880px; top: 180px; z-index: 40;
+      display: none; pointer-events: none;
+      transform-origin: 50% 50%;
+    }}
+    .badge-pop {{
+      animation: alertPopSpring 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    }}
+    @keyframes alertPopSpring {{
+      0% {{ transform: scale(0) rotate(-12deg); opacity: 0; }}
+      70% {{ transform: scale(1.22) rotate(4deg); opacity: 1; }}
+      100% {{ transform: scale(1.0) rotate(-2deg); opacity: 1; }}
+    }}
   </style>
 </head>
 <body>
@@ -409,10 +493,18 @@ class CinematicSvgEngine:
       <div id="layer-bg-plane">
         {svg_content}
       </div>
-      <div id="layer-map-plane" style="position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; display: none;">
+      <div id="layer-map-plane" style="position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; display: none; transform-origin: 50% 50%;">
         {map_svg_content}
       </div>
       <canvas id="actors-canvas" width="1920" height="1080"></canvas>
+    </div>
+
+    <!-- Comic Alert Callout Badge for Climax / Closeup -->
+    <div id="comic-alert-badge">
+      <svg width="340" height="120" viewBox="0 0 340 120">
+        <polygon points="10,60 30,20 80,30 130,10 170,28 220,8 260,32 310,18 330,60 310,102 260,88 210,112 170,92 120,110 70,90 20,104" fill="#dc2626" stroke="#ffffff" stroke-width="6"/>
+        <text x="170" y="70" font-family="'Impact', 'Bangers', Arial Black, sans-serif" font-size="38" font-weight="900" fill="#facc15" text-anchor="middle" letter-spacing="2">DEFCON 2!!</text>
+      </svg>
     </div>
 
     <!-- Pinned Screen-Space Post-FX & Subtitles -->
@@ -445,6 +537,43 @@ class CinematicSvgEngine:
       hasGlasses: true
     }});
 
+    const comicBadge = document.getElementById("comic-alert-badge");
+
+    // Helper: Build rolling 6-word phrase chunks with gold active-word highlight (ZERO "..." truncation)
+    function updateRollingSubtitles(shot, t) {{
+      if (!shot || !shot.text) {{
+        subText.innerHTML = "";
+        return;
+      }}
+      const fullText = shot.text.trim();
+      const words = fullText.split(/\\s+/);
+      if (words.length === 0) return;
+
+      const duration = Math.max(shot.end - shot.start, 0.1);
+      const elapsed = Math.max(0, Math.min(t - shot.start, duration));
+      const progress = elapsed / duration;
+
+      // Determine active word index across full sentence
+      const activeWordIdx = Math.min(Math.floor(progress * words.length), words.length - 1);
+
+      // Determine active 6-word chunk
+      const chunkSize = 6;
+      const chunkIdx = Math.floor(activeWordIdx / chunkSize);
+      const chunkStart = chunkIdx * chunkSize;
+      const chunkEnd = Math.min(chunkStart + chunkSize, words.length);
+      const chunkWords = words.slice(chunkStart, chunkEnd);
+
+      const htmlWords = chunkWords.map((w, idx) => {{
+        const globalIdx = chunkStart + idx;
+        if (globalIdx === activeWordIdx) {{
+          return '<span style="color:#facc15; display:inline-block; transform:scale(1.14); text-shadow:0 0 14px rgba(250,204,21,0.75); font-weight:900; margin:0 3px;">' + w + '</span>';
+        }}
+        return '<span style="margin:0 3px;">' + w + '</span>';
+      }});
+
+      subText.innerHTML = htmlWords.join(" ");
+    }}
+
     function doRenderFrame(timeSec) {{
       // 1. Locate active shot from shotlist
       let activeShot = null;
@@ -458,48 +587,71 @@ class CinematicSvgEngine:
         activeShot = SHOTS[SHOTS.length - 1];
       }}
 
-      // 2. Camera Choreography & Cutaways
+      // 2. Camera Choreography, Smooth Map Zoom-In & Closeups
       let isMapShot = false;
       if (activeShot) {{
         const cam = (activeShot.camera || "wide").toLowerCase();
+        const shotDuration = Math.max(activeShot.end - activeShot.start, 0.1);
+        const shotProgress = Math.max(0, Math.min((timeSec - activeShot.start) / shotDuration, 1.0));
+
         if (cam === "map" || cam === "map_cutaway") {{
           isMapShot = true;
           bgPlane.style.display = "none";
-          if (mapPlane) mapPlane.style.display = "block";
+          if (mapPlane) {{
+            mapPlane.style.display = "block";
+            // Continuous smooth 1.0x -> 3.2x push-in centered on Caribbean/Cuba target theater
+            const currentZoom = 1.0 + Math.min(shotProgress * 2.2, 2.2);
+            mapPlane.style.transform = "scale(" + currentZoom.toFixed(3) + ")";
+          }}
           cameraRig.style.transform = "scale(1.0) translate(0px, 0px)";
           bgPlane.style.filter = "none";
+          if (comicBadge) comicBadge.style.display = "none";
         }} else {{
           bgPlane.style.display = "block";
           if (mapPlane) mapPlane.style.display = "none";
 
           if (cam === "closeup" || cam === "macro") {{
-            cameraRig.style.transform = "scale(1.4) translate(-80px, -60px)";
-            bgPlane.style.filter = "blur(7px)";
+            // True 2.2x Close-Up focused directly onto speaking commander's chest & head (580, 600)
+            cameraRig.style.transform = "scale(2.15) translate(280px, 90px)";
+            bgPlane.style.filter = "blur(8px)";
+            // Trigger Comic Alert Callout Badge
+            if (comicBadge) {{
+              comicBadge.style.display = "block";
+              comicBadge.className = "badge-pop";
+            }}
           }} else if (cam === "data_infographic" || cam === "infographic") {{
             cameraRig.style.transform = "scale(1.22) translate(0px, 35px)";
             bgPlane.style.filter = "blur(1.5px)";
+            if (comicBadge) comicBadge.style.display = "none";
           }} else if (cam === "medium") {{
             cameraRig.style.transform = "scale(1.18) translate(-40px, -20px)";
             bgPlane.style.filter = "blur(3.5px)";
+            if (comicBadge) comicBadge.style.display = "none";
           }} else {{
             cameraRig.style.transform = "scale(1.0) translate(0px, 0px)";
             bgPlane.style.filter = "blur(0px)";
+            if (comicBadge) comicBadge.style.display = "none";
           }}
         }}
 
-        // Subtitles update
-        if (activeShot.text) {{
-          subText.innerHTML = activeShot.text;
-        }}
+        // Subtitles with zero truncation and gold active-word highlight
+        updateRollingSubtitles(activeShot, timeSec);
       }}
 
       // 3. Clear Canvas & Update Skeletal Rigs
       ctx.clearRect(0, 0, 1920, 1080);
 
       if (!isMapShot) {{
-        // Procedural behavior updates
+        // Procedural behavior & acting
         const isLeadSpeaking = Math.sin(timeSec * 3.5) > 0.1;
-        actorLead.update(timeSec, isLeadSpeaking ? "talk" : "idle", {{ isSpeaking: isLeadSpeaking }});
+        // In wide opening, lead character walks in for first 1.2s, then gestures
+        let leadPose = "idle";
+        if (timeSec < 1.2) {{
+          leadPose = "walk";
+        }} else if (isLeadSpeaking) {{
+          leadPose = "talk";
+        }}
+        actorLead.update(timeSec, leadPose, {{ isSpeaking: isLeadSpeaking }});
         actorRival.update(timeSec, "idle", {{ isSpeaking: false }});
 
         // Render onto canvas
