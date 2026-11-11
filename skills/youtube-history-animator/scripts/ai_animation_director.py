@@ -1051,9 +1051,12 @@ class AIAnimationDirector:
 
 
 if __name__ == "__main__":
-    script_p = r"uae_12min_production\directors_cut_script.json"
-    audio_d = r"uae_12min_production\audio"
-    out_vid = r"uae_12min_production\history_of_uae_13min_documentary.mp4"
+    import argparse
+    parser = argparse.ArgumentParser(description="AI Animation Director & Compositor")
+    parser.add_argument("--script", default="production/directors_cut_script.json", help="Path to script JSON")
+    parser.add_argument("--audio", default="production/audio", help="Path to audio directory")
+    parser.add_argument("--out", default="production/master_animation.mp4", help="Output MP4 path")
+    args = parser.parse_args()
 
-    director = AIAnimationDirector(script_p, audio_d, out_vid)
+    director = AIAnimationDirector(args.script, args.audio, args.out)
     director.direct_and_render()

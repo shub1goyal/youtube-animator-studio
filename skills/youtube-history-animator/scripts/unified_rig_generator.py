@@ -201,8 +201,8 @@ CHARACTER_RIGS = {
     </svg>
     """,
 
-    # ================= 3. BEDOUIN PEARL DIVER (1930s) =================
-    "pearl_diver": """
+    # ================= 3. MARITIME DIVER =================
+    "maritime_diver": """
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 440" width="320" height="440">
       <defs>
         <radialGradient id="dSkin" cx="45%" cy="40%" r="55%">
@@ -269,8 +269,8 @@ CHARACTER_RIGS = {
     </svg>
     """,
 
-    # ================= 4. JAPANESE INVENTOR KOKICHI MIKIMOTO =================
-    "inventor_mikimoto": """
+    # ================= 4. INDUSTRIAL INVENTOR =================
+    "industrial_inventor": """
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 440" width="320" height="440">
       <defs>
         <radialGradient id="pearlGlow" cx="35%" cy="35%" r="65%">
@@ -471,8 +471,8 @@ CHARACTER_RIGS = {
     </svg>
     """,
 
-    # ================= 7. DR. OTTO HAHN (ACTIVE: POINTING UP TO BOARD) =================
-    "dr_otto_hahn": """
+    # ================= 7. LEAD SCIENTIST (ACTIVE: POINTING UP TO BOARD) =================
+    "lead_scientist": """
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 440" width="320" height="440">
       <defs>
         <radialGradient id="hahnGlow" cx="80%" cy="30%" r="50%">
@@ -520,8 +520,8 @@ CHARACTER_RIGS = {
     </svg>
     """,
 
-    # ================= 8. FRITZ STRASSMANN (REACTIVE: HEAD CLUTCH PANIC) =================
-    "fritz_strassmann": """
+    # ================= 8. ASSISTANT SCIENTIST (REACTIVE: HEAD CLUTCH PANIC) =================
+    "assistant_scientist": """
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 440" width="320" height="440">
       <defs>
         <radialGradient id="strassMoon" cx="20%" cy="30%" r="50%">

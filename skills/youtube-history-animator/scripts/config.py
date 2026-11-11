@@ -176,3 +176,4 @@ def find_chrome_path():
 FFMPEG_PATH = find_ffmpeg_path()
 FFPROBE_PATH = find_ffprobe_path()
 CHROME_PATH = find_chrome_path()
+

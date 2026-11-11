@@ -87,6 +87,7 @@ class ViralMetadataEngine:
         """Generates exact YouTube chapter timestamps (e.g. 00:00 - Introduction)."""
         chapters = []
         cur_sec = 0.0
+        is_uae = any(k in self.topic.lower() for k in ["uae", "emirates", "dubai", "abu dhabi"])
 
         for idx, sc in enumerate(self.scenes, 1):
             dur = float(sc.get("duration", 14.0))
@@ -103,26 +104,29 @@ class ViralMetadataEngine:
                 label = f"Act {(idx-1)//5 + 1}: Scene {idx}"
 
             # Curate punchy chapter titles
-            if idx == 1:
-                label = "1930s Trucial Coast: Starving in the Desert"
-            elif idx == 3:
-                label = "Kokichi Mikimoto & The 1930 Pearl Crash"
-            elif idx == 9:
-                label = "1820: British Royal Navy & The Trucial Treaty"
-            elif idx == 10:
-                label = "1853: Perpetual Maritime Peace Accord"
-            elif idx == 16:
-                label = "1892: British Exclusive Hegemony"
-            elif idx == 18:
-                label = "1958: Abu Dhabi Strikes Black Gold!"
-            elif idx == 21:
-                label = "December 2, 1971: The Impossible UAE Union"
-            elif idx == 28:
-                label = "Smart Dubai: AI Ministers & The Space Age"
-            elif idx == 38:
-                label = "Engineering Burj Khalifa & Palm Jumeirah"
-            elif idx == 48:
-                label = "Emirates Mars Hope Mission & Grand Finale"
+            if is_uae:
+                if idx == 1:
+                    label = "1930s Trucial Coast: Starving in the Desert"
+                elif idx == 3:
+                    label = "The 1930 Global Pearl Market Crash"
+                elif idx == 9:
+                    label = "1820: British Royal Navy & The Maritime Treaty"
+                elif idx == 10:
+                    label = "1853: Perpetual Maritime Peace Accord"
+                elif idx == 16:
+                    label = "1892: British Exclusive Hegemony"
+                elif idx == 18:
+                    label = "1958: Abu Dhabi Strikes Black Gold!"
+                elif idx == 21:
+                    label = "December 2, 1971: The Impossible Union"
+                elif idx == 28:
+                    label = "Smart Modern Era: The Space Age"
+                elif idx == 38:
+                    label = "Engineering Architectural Wonders"
+                elif idx == 48:
+                    label = "Mars Hope Mission & Grand Finale"
+            else:
+                label = sc.get("title") or badge or f"Chapter {idx}"
 
             # Filter duplicates or minor sub-scenes
             if idx in [1, 3, 6, 9, 10, 14, 16, 18, 21, 25, 28, 32, 38, 44, 48] or len(self.scenes) <= 10:
@@ -132,7 +136,8 @@ class ViralMetadataEngine:
 
         # Guarantee 00:00 start for YouTube chapter parsing
         if not chapters or not chapters[0].startswith("00:00"):
-            chapters.insert(0, "00:00 - The Forgotten Trucial Coast")
+            start_label = "00:00 - The Beginning" if not is_uae else "00:00 - The Trucial Era"
+            chapters.insert(0, start_label)
 
         return "\n".join(chapters)
 
@@ -140,18 +145,29 @@ class ViralMetadataEngine:
         """Builds a broadcast-grade, retention-engineered YouTube description."""
         title = chosen_title or self.generate_viral_titles()[0]["title"]
         chapters = self.generate_timestamped_chapters()
+        topic = self.topic
+        is_uae = any(k in topic.lower() for k in ["uae", "emirates", "dubai", "abu dhabi"])
 
-        desc = f"""{title}
+        if is_uae:
+            lead = """In 1930, the Trucial Coast was one of the poorest and harshest corners of the planet. Zero air conditioning, zero roads, and an entire population surviving on camel milk, dry dates, and dangerous deep-sea pearl diving. 
 
-In 1930, the Trucial Coast was one of the poorest and harshest corners of the planet. Zero air conditioning, zero roads, and an entire population surviving on camel milk, dry dates, and dangerous deep-sea pearl diving. 
-
-Then came the catastrophe: Japanese inventor Kokichi Mikimoto invented cultured pearls, and overnight, the Arabian Gulf's entire pearl market crashed by 98%. Families were pushed to the brink of starvation.
+Then came the catastrophe: the global pearl market crashed by 98% with the arrival of artificial cultured pearls. Families were pushed to the brink of starvation.
 
 Fast forward less than a century: the UAE stands as a $500 billion global powerhouse, home to the world's tallest skyscraper, artificial island archipelagos, sovereign AI ministers, and space probes orbiting Mars. 
 
 How did a cluster of Bedouin tribes survive British naval blockades, economic collapse, and desert wars to build the richest modern federation in history?
 
-This is the complete, chaotic, and inspiring 13-minute animated history of the United Arab Emirates.
+This is the complete, chaotic, and inspiring animated history of the United Arab Emirates."""
+        else:
+            lead = f"""Welcome to the complete, chaotic, and fascinating animated history of {topic}!
+
+From pivotal battles and strategic treaties to unexpected plot twists and historic transformations, explore how key events shaped history in this fast-paced OverSimplified-style animated documentary.
+
+How did these events unfold, and what were the surprising decisions that changed everything? Watch to find out!"""
+
+        desc = f"""{title}
+
+{lead}
 
 TIMESTAMPS:
 {chapters}
@@ -160,43 +176,56 @@ SUBSCRIBE FOR MORE ANIMATED HISTORIES:
 🔔 Turn on notifications so you never miss an episode!
 👉 https://www.youtube.com/@HistoricalAnimations?sub_confirmation=1
 
-CREDITS & HISTORICAL CITATIONS:
-• UAE National Archives & Trucial States Historical Treaties (1820, 1853, 1892)
-• Sheikh Zayed bin Sultan Al Nahyan: The Architect of the Union
-• British Admiralty Records on the Persian Gulf Maritime Truces
-• Animation style heavily inspired by OverSimplified and History Matters.
-
 DISCLOSURE & AI TRANSPARENCY:
-This educational animation combines procedural 2D ragdoll physics rigs, original vector art, and neural narration synthesized via Gemini Flash TTS (Voice: Charon) with historical forced-alignment synchronization.
+This educational animation combines procedural 2D ragdoll physics rigs, original vector art, and neural narration synthesized via Gemini Flash TTS with historical forced-alignment synchronization.
 
-#HistoryDocumentary #OverSimplified #UAEHistory #DubaiDocumentary #HistoryMatters #MiddleEastHistory
+#HistoryDocumentary #OverSimplified #HistoryMatters #EducationalAnimation
 """
         return desc.strip()
 
     def generate_seo_tags(self):
         """Generates 500 characters of high-volume and competitor SEO tags."""
-        tags = [
-            "history of uae",
-            "dubai history documentary",
-            "how uae became rich",
-            "sheikh zayed history",
-            "oversimplified",
-            "oversimplified hindi",
-            "history matters",
-            "trucial states 1820",
-            "pearl diving uae crash",
-            "mikimoto cultured pearls",
-            "oil discovered abu dhabi 1958",
-            "uae union 1971",
-            "sheikh rashid dubai vision",
-            "burj khalifa engineering",
-            "animated history documentary",
-            "middle east history explained",
-            "emirates mars mission hope",
-            "dubai past vs present",
-            "history documentary 2024",
-            "history of dubai in hindi"
-        ]
+        topic = self.topic
+        is_uae = any(k in topic.lower() for k in ["uae", "emirates", "dubai", "abu dhabi"])
+
+        if is_uae:
+            tags = [
+                "history of uae",
+                "dubai history documentary",
+                "how uae became rich",
+                "sheikh zayed history",
+                "oversimplified",
+                "oversimplified hindi",
+                "history matters",
+                "trucial states 1820",
+                "pearl diving market crash",
+                "oil discovered abu dhabi 1958",
+                "uae union 1971",
+                "sheikh rashid dubai vision",
+                "burj khalifa engineering",
+                "animated history documentary",
+                "middle east history explained",
+                "emirates mars mission hope",
+                "dubai past vs present",
+                "history documentary 2024",
+                "history of dubai in hindi"
+            ]
+        else:
+            topic_clean = topic.lower()
+            tags = [
+                topic_clean,
+                f"{topic_clean} history",
+                f"{topic_clean} documentary",
+                f"{topic_clean} explained",
+                f"{topic_clean} animated",
+                "oversimplified",
+                "oversimplified hindi",
+                "history matters",
+                "animated history documentary",
+                "history documentary 2024",
+                "educational animation",
+                "historical deep dive"
+            ]
         tag_str = ", ".join(tags)
         # Ensure under 500 characters
         while len(tag_str) > 495:
@@ -206,12 +235,21 @@ This educational animation combines procedural 2D ragdoll physics rigs, original
 
     def generate_pinned_comment(self):
         """Generates a high-conversion engagement pinned comment."""
+        topic = self.topic
+        is_uae = any(k in topic.lower() for k in ["uae", "emirates", "dubai", "abu dhabi"])
+        if is_uae:
+            return (
+                "🔥 PINNED QUESTION FOR THE COMMUNITY:\n\n"
+                "Did you know that the 1930s pearl crash almost starved an entire nation before oil was ever discovered?\n\n"
+                "Which era of history surprised you the most: the 1820 naval treaties or the 1971 union?\n\n"
+                "👇 Drop your thoughts below! Best comment gets pinned & a heart! ❤️\n"
+                "P.S. What historical topic should we animate next? Let us know!"
+            )
         return (
-            "🔥 PINNED QUESTION FOR THE COMMUNITY:\n\n"
-            "Did you know that Japanese cultured pearls almost starved an entire nation before oil was ever discovered?\n\n"
-            "Which era of UAE history surprised you the most: the 1820 British Royal Navy battles, or the 1971 alliance between Sheikh Zayed and Sheikh Rashid?\n\n"
-            "👇 Drop your thoughts below! Best comment gets pinned & a heart! ❤️\n"
-            "P.S. What historical topic should we animate next? Let us know!"
+            f"🔥 PINNED QUESTION FOR THE COMMUNITY:\n\n"
+            f"What was the most surprising moment in this breakdown of {topic}?\n\n"
+            "👇 Drop your thoughts and theories below! Best comment gets pinned & a heart! ❤️\n"
+            "P.S. What historical topic should we animate next? Let us know in the comments!"
         )
 
     def generate_complete_viral_package(self):

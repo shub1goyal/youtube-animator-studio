@@ -113,4 +113,4 @@ When assigned Scene $X$, generate:
 4. **Strict XML Well-Formedness Rule**:
    - **STRICT BAN ON `--` INSIDE COMMENTS**: In the XML 1.0 specification, two or more consecutive hyphens (`--`) inside comments are strictly illegal and break browser rendering (e.g. use `<!-- ================== -->`, NEVER `<!-- ------------------ -->`).
    - All SVGs must pass Python `xml.etree.ElementTree.parse()` with **0 errors**.
-5. **Strict Vector Rule**: **ZERO PNG generation**. Direct Chromium GPU vector rendering only.
+5. **Hybrid Asset Standard**: Pure 2.5D DOM/Canvas/SVG orchestration. Clean SVGs, AI-illustrated 2D background layers, and real GeoJSON cartography are composited seamlessly in `scene_X_movie.html` and rendered deterministically via Chromium GPU frame-stepping.

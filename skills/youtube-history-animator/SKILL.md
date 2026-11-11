@@ -1,4 +1,4 @@
-﻿---
+---
 name: youtube-history-animator
 description: >-
   Directs and orchestrates end-to-end AI-powered production of viral historical and educational 2D animated videos (16:9 long-form and 9:16 vertical Shorts) in the style of OverSimplified, History Matters, and Animated History. PRIMARY LANGUAGE OF CONTENT: HINGLISH FIRST (Conversational Romanized Hindi + English loanwords). Orchestrates dedicated sidecar vector cinematographers (svg-scene-cinematographer) for uncompromised 5-layer volumetric SVGs, Gemini 3.8 Flash TTS (Voice: Charon) with rotating API key pools and audited Hinglish phonetics, automated vector asset rigging, and broadcast audio mastering.
@@ -73,7 +73,7 @@ When a topic is given, the studio executes 6 autonomous phases with strict quali
    - Cross-references script visual cues and entities against spoken words to build `scene_beat_sheets.json`.
    - Maps exact trigger timestamps for character entrances (`"slide_from_left"`, `"slide_from_right"`), prop gravity drops, ragdoll faints, and rubber stamp slams.
 6. **Phase 6: 25-Year Veteran AI Animation Director (`ai_animation_director.py`)**:
-   - **Word-to-Frame Kinetic Action Synchronization**: Characters enter dynamically on the exact word their faction/name is spoken (e.g. at word *"British"*, Officer slides in with elastic overshoot; at *"Mikimoto"*, Mikimoto enters; at *"Rashid"*, Sheikh Rashid arrives). Off-screen until spoken.
+   - **Word-to-Frame Kinetic Action Synchronization**: Characters enter dynamically on the exact word their faction/name is spoken (e.g. at word *"British"*, Officer slides in with elastic overshoot; at *"Emperor"*, monarch enters; at *"General"*, commander arrives). Off-screen until spoken.
    - **Kinetic Prop Drops & Stamp Slams**: At word *"Crash"*, market crash board plummets down; at *"Treaty"*, treaty table drops and golden/green stamp slams down with ease-in physics.
    - **Spoken Viseme Modulation**: Puppet mouths flap in sync with active Whisper word timestamps and remain naturally closed during pauses.
    - **Anatomically Unified Rigs**: Monolithic 1:1 SVGs ($320\times 440$). Heads, necks, collars, robes, and limbs are completely continuous (zero neck gap, zero decapitation, zero modular body duplication).
@@ -85,13 +85,17 @@ When a topic is given, the studio executes 6 autonomous phases with strict quali
      * Mouth Visemes: Center $Y = 186$, Size: $42\times 22\text{px}$, maintaining a clean $15\text{px}$ vertical clearance below eyes (zero overlap)
      * Headdress/Ghutra: Forehead canvas ($X \in [105, 215], Y \in [100, 220]$) must remain open, framing side drapes only
      * Robot Visor: Cyan glowing LED visor with procedural chest audio waveform for speech
-   - **Intelligent Staging & Zero Collision**: Characters are positioned with dynamic balance (never overlapping buildings or props; British officers and Sheikhs across treaty tables; Mikimoto presenting cultured pearls to fainting pearl divers).
+   - **Intelligent Staging & Zero Collision**: Characters are positioned with dynamic balance (never overlapping buildings or props; rival diplomats across treaty tables; commanders presenting battle plans to reacting advisors).
    - **OverSimplified Kinetics**: Speech cadence bobbing, eye blinking (`blink_timer` starts at `1.0` so characters start with eyes open, never closed at $t=0$), pupil gaze tracking, reactive expressions (shock wide eyes, sweat droplets, dollar eyes, knockout X eyes), and ragdoll faints.
    - **Strict Historical Era Validation**: Enforce era compatibility matrix (no modern supercars, skyscrapers, or airplanes in 19th-century or ancient scenes; 1820 scenes feature British warships and treaty tables, modern supercars only appear on 2020s highways).
    - **Clean Broadcast Packaging**: Zero debug text (NO "SCENE X • ACT Y", NO "Episode #X" cards). Subtle vintage era stamps appear on historical transitions and fade out smoothly within 3.5s.
    - **Steady Kinetic Subtitles**: Active word highlighting in gold (`#FACC15`) anchored at bottom center.
    - Direct RGBA zero-copy pipeline into FFmpeg for rapid rendering at 25 FPS.
-7. **Phase 7: Quality Gate & Packaging (`autonomous_studio.py`)**:
+7. **Phase 7: Hybrid 2.5D Compositing & Deterministic Rendering (`kinetic_video_renderer.py`)**:
+   - Master GSAP / HTML5 Canvas 2.5D compositor with Universal Skeletal IK Character Rigs (`skeletal_puppet_engine.js`), Real GeoJSON Cartography (`geojson_map_engine.py`), and 12 Universal Procedural Environment Engines (`hybrid_asset_generator.py`).
+   - Playwright headless Chromium stepped deterministically via `window.seekToTime(t)` piping frames to FFmpeg.
+8. **Phase 8: Automated Visual QA Gate & Packaging (`visual_qa_inspector.py` & `autonomous_studio.py`)**:
+   - Forensic visual QA: extracts 12 sample frames across timeline, verifies resolution (1920x1080), luminance, and motion delta into `qa_report.json` and a 4x3 labeled `contact_sheet.png`.
    - Verifies final MP4 resolution (1920x1080), duration ($\ge 10-15$ mins), and audio synchronization.
    - Generates `captions.srt` and `PRODUCTION_BIBLE.md` (High-CTR titles, timestamps, description, tags, thumbnail concept).
 
@@ -302,7 +306,7 @@ Implement **6 Modular Arm & Gesture Presets** inside the `320x440` rig (`stroke=
 2. `pose="head_clutch_panic"`: Both arms curved upward (`M 115 260 C 75 220 80 150 110 125` and `M 205 260 C 245 220 240 150 210 125`) with white circle hands gripping the sides of the head in disbelief.
 3. `pose="chin_stroke_thinking"`: Left arm crossed under chest, right hand raised to chin (`(175, 202)`) with asymmetric furrowed brow (one brow raised, one lowered).
 4. `pose="shh_finger_lips"`: Hand raised to `(160, 188)` with upright index finger `<rect>` over tense small `O` mouth.
-5. `pose="holding_prop_chest"`: Forearm angled across torso holding a topic-specific handheld prop (clipboard, bubbling test tube, treaty scroll, or steaming `karak_chai_glass`).
+5. `pose="holding_prop_chest"`: Forearm angled across torso holding a topic-specific handheld prop (clipboard, bubbling test tube, treaty scroll, or gold coin).
 6. `pose="ear_cupping_listen"`: Body leaned `12deg` toward sound source, back hand cupping ear (`(102, 145)`), front hand reaching toward dial/table.
 
 **Two-Character Staging Formula:**
@@ -335,7 +339,7 @@ Inspired by viral *MapLore* Shorts and *Unknown Frequencies*, static props and t
   * Dynamic Gesture Transitions: Characters raise pointing arms or clutch head with spring overshoot (`ease_out_back`) at key narrative timestamps.
   * MapLore Comic Overlays: Comic alert double-badges (`!!`/`?!`) and curved-pointer dialogue cards pop onto screen on high-energy keywords with elastic bounce.
   * Dynamic 2.5D Camera: Continuous eased push-ins and impact camera shake on dramatic shock/detonation moments.
-  * Interactive Player: Every project provides `japan_nuclear_cinema_player.html` for 60 FPS real-time browser preview, 16:9 Cinema vs 9:16 Shorts crop, and standalone SVG export.
+  * Interactive Player: Every project provides `scene_X_movie.html` for 60 FPS real-time browser preview, 16:9 Cinema vs 9:16 Shorts crop, and deterministic frame-stepping export via `window.seekToTime(t)`.
 
 
 ---

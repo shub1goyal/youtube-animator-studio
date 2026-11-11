@@ -561,30 +561,16 @@ def generate_chibi_character(
 def main():
     parser = argparse.ArgumentParser(description="Generate Cinematic Chibi Character Rig")
     parser.add_argument("--name", default="resistance_fighter")
-    parser.add_argument("--expression", default="shocked", choices=[
-        "shocked", "panicked", "intense_dread", "thinking", "neutral",
-        "smug", "happy", "angry", "crying", "dollar_eyes", "knockout"
-    ])
-    parser.add_argument("--pose", default="pointing_up_board", choices=[
-        "pointing_up_board", "head_clutch_panic", "chin_stroke_thinking",
-        "shh_finger_lips", "holding_prop_chest", "ear_cupping_listen", "ear_listening",
-        "standing", "namaste_greeting", "sword_raised", "arms_crossed_skeptical", "shock_lean_back"
-    ])
-    parser.add_argument("--hat", default=None, choices=[
-        "keffiyeh", "powdered_wig", "bicorne", "ashoka_crown", "royal_mukut",
-        "turban", "pagri", "gandhi_topi", "military_cap", "top_hat", "none"
-    ])
+    parser.add_argument("--expression", default="shocked", help="Expression keyword (shocked, panicked, intense_dread, thinking, neutral, smug, happy, angry, crying, dollar_eyes, knockout, or custom)")
+    parser.add_argument("--pose", default="pointing_up_board", help="Pose keyword (pointing_up_board, head_clutch_panic, chin_stroke_thinking, shh_finger_lips, holding_prop_chest, ear_cupping_listen, standing, namaste_greeting, sword_raised, arms_crossed_skeptical, shock_lean_back, or custom)")
+    parser.add_argument("--hat", default=None, help="Hat / headdress type (keffiyeh, powdered_wig, bicorne, ashoka_crown, royal_mukut, turban, pagri, gandhi_topi, military_cap, top_hat, or custom)")
     parser.add_argument("--hair-color", default="#1f2937")
     parser.add_argument("--coat-color", default="#2b303c")
     parser.add_argument("--vest-color", default="#cbd5e1")
     parser.add_argument("--skin-tone", default="#ffffff")
     parser.add_argument("--rim-color", default="#fbbf24")
     parser.add_argument("--rim-side", default="right", choices=["left", "right"])
-    parser.add_argument("--prop", default=None, choices=[
-        "test_tube", "clipboard", "karak_chai", "oil_barrel", "pearl_oyster",
-        "dagger_behind_back", "treaty_scroll", "magnifying_glass", "quill_pen",
-        "sword", "briefcase_cash", "none"
-    ])
+    parser.add_argument("--prop", default=None, help="Handheld prop (test_tube, clipboard, karak_chai, oil_barrel, pearl_oyster, dagger_behind_back, treaty_scroll, magnifying_glass, quill_pen, sword, briefcase_cash, or custom)")
     parser.add_argument("--nameplate", action="store_true", help="Display nameplate at bottom")
     parser.add_argument("--out", default="char_cinematic.svg")
     args = parser.parse_args()

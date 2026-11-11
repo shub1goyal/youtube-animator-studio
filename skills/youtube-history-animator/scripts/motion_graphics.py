@@ -281,7 +281,7 @@ class MotionGraphicsEngine:
         # Paste onto canvas centered at target
         canvas.alpha_composite(badge_img, (target_x - badge_img.width // 2, target_y - badge_img.height // 2))
 
-    def draw_curved_pointer_callout(self, canvas, t_rel, text="Wait... Barium?!", mouth_pos=(960, 480), trigger_time=0.0, duration=2.0, offset_x=120, offset_y=-110):
+    def draw_curved_pointer_callout(self, canvas, t_rel, text="Wait... What?!", mouth_pos=(960, 480), trigger_time=0.0, duration=2.0, offset_x=120, offset_y=-110):
         """
         Draws MapLore-style curved-pointer micro-dialogue callout bubble
         with dashed pointer line extending to character's mouth.

@@ -131,7 +131,7 @@ def render_scene_worker(scene_id, prod_dir, fps=25, force=False, quality=95):
         ffmpeg_cmd,
         stdin=subprocess.PIPE,
         stdout=subprocess.DEVNULL,
-        stderr=subprocess.PIPE
+        stderr=subprocess.DEVNULL
     )
 
     t0 = time.time()
@@ -271,3 +271,4 @@ if __name__ == "__main__":
     else:
         success = render_all_scenes_parallel(args.prod_dir, None, args.fps, args.workers, args.force)
         sys.exit(0 if success else 1)
+

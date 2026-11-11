@@ -93,7 +93,7 @@ Triggered automatically on high-energy Hinglish exclamation words (*"Lafda"*, *"
     },
     {
       "type": "curved_pointer_bubble",
-      "text": "Wait... Barium?!",
+      "text": "Wait... What?!",
       "trigger_time": 8.8,
       "duration": 2.0,
       "anchor_actor": "secondary"
@@ -101,13 +101,13 @@ Triggered automatically on high-energy Hinglish exclamation words (*"Lafda"*, *"
   ],
   "characters": {
     "primary": {
-      "char_id": "otto_hahn",
+      "char_id": "historical_lead",
       "pose": "pointing_up_board",
       "anchor": [760, 810],
       "active_speaking": true
     },
     "secondary": {
-      "char_id": "fritz_strassmann",
+      "char_id": "historical_rival",
       "pose": "head_clutch_panic",
       "anchor": [1160, 810],
       "active_speaking": false

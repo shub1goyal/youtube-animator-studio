@@ -15,7 +15,7 @@ This skill completely automates the final step of YouTube content creation: **pu
 ### A. Publish Documentary Directly to YouTube:
 Publishes the master video to your authenticated channel with high-CTR metadata, custom thumbnail, and pinned comment:
 ```powershell
-py <plugin-root>/skills/youtube-viral-publisher\scripts\publish_to_youtube.py --video uae_12min_production\history_of_uae_13min_documentary.mp4 --privacy unlisted
+py <plugin-root>/skills/youtube-viral-publisher\scripts\publish_to_youtube.py --video production\master_animation.mp4 --privacy unlisted
 ```
 *(Options for `--privacy`: `unlisted` for review, `public` for immediate launch, `private` for draft).*
 

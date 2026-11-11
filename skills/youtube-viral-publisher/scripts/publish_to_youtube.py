@@ -40,8 +40,8 @@ def publish_episode(
     if script_path and os.path.exists(script_path):
         with open(script_path, "r", encoding="utf-8") as f:
             script_data = json.load(f)
-    elif os.path.exists(r"uae_12min_production\directors_cut_script.json"):
-        with open(r"uae_12min_production\directors_cut_script.json", "r", encoding="utf-8") as f:
+    elif os.path.exists(os.path.join("production", "directors_cut_script.json")):
+        with open(os.path.join("production", "directors_cut_script.json"), "r", encoding="utf-8") as f:
             script_data = json.load(f)
 
     # 2. Generate Viral Metadata
@@ -111,8 +111,8 @@ def publish_episode(
 
 def main():
     parser = argparse.ArgumentParser(description="Full-Auto YouTube Viral Video Publisher")
-    parser.add_argument("--video", default=r"uae_12min_production\history_of_uae_13min_documentary.mp4", help="Path to rendered MP4 video")
-    parser.add_argument("--script", default=r"uae_12min_production\directors_cut_script.json", help="Path to script JSON")
+    parser.add_argument("--video", default=os.path.join("production", "master_animation.mp4"), help="Path to rendered MP4 video")
+    parser.add_argument("--script", default=os.path.join("production", "directors_cut_script.json"), help="Path to script JSON")
     parser.add_argument("--thumbnail", default=None, help="Path to custom thumbnail JPEG")
     parser.add_argument("--privacy", choices=["unlisted", "public", "private"], default="unlisted", help="Upload privacy status")
     parser.add_argument("--variant", choices=["A", "B", "C"], default="A", help="Title variant to select")

@@ -3,7 +3,7 @@
 > **Broadcast-Grade 2.5D Vector Movie Engine & Viral Production Suite for Antigravity AI**  
 > Produces high-retention 1080p 25 FPS animated historical and educational documentaries in the iconic style of **OverSimplified**, **History Matters**, and **Johnny Harris** with Conversational Hinglish narration, 5-layer volumetric staging, Whisper forced alignment, and YouTube Partner Program (YPP) monetization compliance.
 
-[![Plugin Version](https://img.shields.io/badge/version-1.1.0-blue.svg)](plugin.json)
+[![Plugin Version](https://img.shields.io/badge/version-1.3.0-blue.svg)](plugin.json)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Python: 3.10+](https://img.shields.io/badge/Python-3.10%2B-brightgreen.svg)]()
 [![Platform: Cross--Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey.svg)]()
@@ -107,16 +107,21 @@ youtube-animator-studio/
     │   │   ├── viral_scripting_framework.md # Two-tier CTA, pacing & humor architecture
     │   │   ├── animation_pipeline.md        # Technical compositing & render contract
     │   │   └── ai_voice_monetization_guide.md# YPP synthetic media defense guidelines
-    │   └── scripts/                         # Executable Python Modules
+    │   └── scripts/                         # Executable Python & JS Modules
     │       ├── config.py                    # Cross-platform binary & API key loader
     │       ├── ai_script_generator.py       # Hierarchical multi-act script generator
     │       ├── gemini_tts_engine.py         # Gemini 3.8 Flash TTS with key pool rotation
     │       ├── whisper_aligner.py           # Faster-Whisper forced word aligner
     │       ├── audit_subtitle_sync.py       # Pre-render subtitle synchronization gate
     │       ├── beat_sheet_generator.py      # Topic-agnostic kinetic beat sheet builder
+    │       ├── skeletal_puppet_engine.js    # Canvas 2D skeletal IK solver & acting engine
+    │       ├── skeletal_puppet_engine.py    # Python companion skeletal IK animator
     │       ├── character_rig_generator.py   # Monolithic 320x440 OverSimplified rigs
+    │       ├── geojson_map_engine.py        # Real-world GeoJSON tactical cartography
+    │       ├── hybrid_asset_generator.py    # 12 universal procedural environment engines
     │       ├── cinematic_svg_engine.py      # 5-Layer volumetric SVG & movie HTML builder
     │       ├── kinetic_video_renderer.py    # Deterministic Playwright-to-FFmpeg renderer
+    │       ├── visual_qa_inspector.py       # Automated visual QA & 4x3 contact sheet audit
     │       ├── full_auto_producer.py        # End-to-end full auto episode pipeline
     │       ├── autonomous_studio.py         # Autonomous production orchestrator
     │       ├── sound_design_engine.py       # Procedural SFX & cartoon whoosh synthesizer
@@ -171,7 +176,7 @@ playwright install chromium
 Provide Gemini API keys using any of these methods (checked automatically in priority order):
 1. **Environment Variable**:
    ```bash
-   export GEMINI_API_KEY="AIzaSyYourKey1,AIzaSyYourKey2"
+   export GEMINI_API_KEY="your_gemini_key_1,your_gemini_key_2"
    ```
 2. **Local Config File** (gitignored):
    Copy `api_keys.example.json` to `api_keys.json`:
@@ -269,6 +274,33 @@ py skills/storyboard-motion-director/scripts/audio_mastering_helper.py \
 # Pacing Sweet-Spot Audit (Flags cuts > 6.0s or < 1.8s)
 py skills/storyboard-motion-director/scripts/pacing_analyzer.py \
   --video episode_master.mp4
+```
+
+### 8. Real GeoJSON Tactical Map Cutaway
+Generate broadcast-grade cartographic vector scenes with real world country boundaries, glowing radar sweeps, and invasion arrows:
+```bash
+py skills/youtube-history-animator/scripts/geojson_map_engine.py \
+  --region europe \
+  --title "OPERATION OVERLORD • 1944" \
+  --color "#38bdf8" \
+  --out "tactical_map.svg"
+```
+
+### 9. Hybrid AI & Procedural Environment Synthesis
+Synthesize 2D graphic-novel backgrounds across 12 universal environments (`war_room_bunker`, `palace_throne`, `ancient_battlefield`, `financial_exchange`, etc.):
+```bash
+py skills/youtube-history-animator/scripts/hybrid_asset_generator.py \
+  --env war_room_bunker \
+  --out "bunker_env.svg"
+```
+
+### 10. Automated Visual QA & Contact Sheet Audit
+Forensically samples 12 frames across the timeline, synthesizes a 4x3 labeled contact sheet, and audits resolution, average luminance, and frame-to-frame motion delta to ensure zero freeze-frames:
+```bash
+py skills/youtube-history-animator/scripts/visual_qa_inspector.py \
+  --video output/deterministic_segments/scene_1_cinema.mp4 \
+  --out contact_sheet.png \
+  --report qa_report.json
 ```
 
 ---

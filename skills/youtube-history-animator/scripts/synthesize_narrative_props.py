@@ -34,7 +34,11 @@ from PIL import Image
 
 SPRITES_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "sprites")
 os.makedirs(SPRITES_DIR, exist_ok=True)
-CHROME_PATH = r"C:\Program Files\Google\Chrome\Application\chrome.exe"
+try:
+    from config import CHROME_PATH
+except ImportError:
+    import shutil
+    CHROME_PATH = os.environ.get("CHROME_PATH") or shutil.which("chrome") or shutil.which("google-chrome") or r"C:\Program Files\Google\Chrome\Application\chrome.exe"
 
 NARRATIVE_PROPS = {
     # 1. KARAK CHAI GLASS (Steaming amber karak tea in glass cup with golden saucer & specular shine)

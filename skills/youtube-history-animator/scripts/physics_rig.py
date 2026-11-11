@@ -265,13 +265,13 @@ class PhysicsCharacterPuppet:
                     "mouth_center": (160, 186),
                     "mouth_size": (42, 22),
                 },
-                "pearl_diver": {
+                "worker": {
                     "eye_center": (160, 144),
                     "eye_size": (72, 32),
                     "mouth_center": (160, 186),
                     "mouth_size": (42, 22),
                 },
-                "inventor_mikimoto": {
+                "inventor": {
                     "eye_center": (160, 146),
                     "eye_size": (74, 32),
                     "mouth_center": (160, 186),

@@ -57,6 +57,6 @@ For every assignment, you MUST deliver:
 ## 🛠️ Output Protocol
 1. Output format: Pure `1280x720` SVG (`viewBox="0 0 1280 720"`).
 2. All SVGs must pass `xml.etree.ElementTree.parse()` with **0 errors**.
-3. Strict zero-PNG policy: Output pure vector `.svg`.
+3. Hybrid Packaging: Output master vector `.svg` and export high-CTR `.jpg` / `.png` (1280x720) for automated YouTube Data API uploading.
 4. Embedded `@import` for Google Fonts (`Bangers` & `Inter`).
 

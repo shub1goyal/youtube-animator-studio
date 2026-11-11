@@ -4,7 +4,7 @@ import time
 from pathlib import Path
 from faster_whisper import WhisperModel
 
-def align_all_scenes(scenes_dir="uae_12min_production/audio", output_dir="uae_12min_production/audio/word_timestamps", num_scenes=48):
+def align_all_scenes(scenes_dir="production/audio", output_dir="production/audio/word_timestamps", num_scenes=48, prompt_hint="Hindi Hinglish educational history documentary."):
     os.makedirs(output_dir, exist_ok=True)
     
     print("Loading faster-whisper 'base' model on CPU (int8)...")
@@ -42,7 +42,7 @@ def align_all_scenes(scenes_dir="uae_12min_production/audio", output_dir="uae_12
             segments, info = model.transcribe(
                 audio_file,
                 word_timestamps=True,
-                initial_prompt="Hindi Hinglish Dubai UAE history documentary, British, Mikimoto, Sheikh Zayed, oil, treaty, pearling, Dubai, Abu Dhabi."
+                initial_prompt=prompt_hint
             )
             
             words_data = []
