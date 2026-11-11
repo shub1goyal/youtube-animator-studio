@@ -1,0 +1,393 @@
+<svg id="master-svg" viewBox="0.0 0.0 1920.0 1080.0" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" class="w-full h-full block">
+        
+        <defs>
+          <!-- 1. Gaussian Blur & Glow Filters -->
+          <filter id="blur-heavy" x="-30%" y="-30%" width="160%" height="160%">
+            <feGaussianBlur stdDeviation="45"/>
+          </filter>
+          <filter id="blur-medium" x="-20%" y="-20%" width="140%" height="140%">
+            <feGaussianBlur stdDeviation="16"/>
+          </filter>
+          <filter id="blur-soft" x="-10%" y="-10%" width="120%" height="120%">
+            <feGaussianBlur stdDeviation="5"/>
+          </filter>
+          <filter id="radio-bloom" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur1"/>
+            <feGaussianBlur in="SourceGraphic" stdDeviation="28" result="blur2"/>
+            <feMerge>
+              <feMergeNode in="blur2"/>
+              <feMergeNode in="blur1"/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>
+
+          <!-- 2. Procedural Film Grain & Texture Filter -->
+          <filter id="film-grain" x="0%" y="0%" width="100%" height="100%">
+            <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="2" stitchTiles="stitch" result="noise"/>
+            <feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0.045 0" in="noise" result="coloredNoise"/>
+            <feComposite operator="in" in2="SourceGraphic"/>
+          </filter>
+
+          <!-- 3. Architectural Gradients -->
+          <linearGradient id="cellar-wall-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#0b111e"/>
+            <stop offset="55%" stop-color="#12131a"/>
+            <stop offset="100%" stop-color="#1a120f"/>
+          </linearGradient>
+
+          <linearGradient id="floor-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#0d0f14"/>
+            <stop offset="100%" stop-color="#050608"/>
+          </linearGradient>
+
+          <linearGradient id="wood-beam-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#231915"/>
+            <stop offset="50%" stop-color="#17100d"/>
+            <stop offset="100%" stop-color="#0c0806"/>
+          </linearGradient>
+
+          <!-- 4. Volumetric Lighting Gradients (Dual Temperature) -->
+          <!-- Oppressive Cold Blue Key -->
+          <linearGradient id="moonlight-beam" x1="0%" y1="0%" x2="85%" y2="100%">
+            <stop offset="0%" stop-color="#60a5fa" stop-opacity="0.45"/>
+            <stop offset="35%" stop-color="#38bdf8" stop-opacity="0.20"/>
+            <stop offset="75%" stop-color="#1e3a8a" stop-opacity="0.05"/>
+            <stop offset="100%" stop-color="#0f172a" stop-opacity="0"/>
+          </linearGradient>
+
+          <radialGradient id="street-window-glow" cx="20%" cy="18%" r="45%">
+            <stop offset="0%" stop-color="#93c5fd" stop-opacity="0.55"/>
+            <stop offset="45%" stop-color="#2563eb" stop-opacity="0.18"/>
+            <stop offset="100%" stop-color="#090d16" stop-opacity="0"/>
+          </radialGradient>
+
+          <!-- Intimate Warm Amber Key -->
+          <radialGradient id="radio-amber-primary" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#fef08a" stop-opacity="0.95"/>
+            <stop offset="22%" stop-color="#f59e0b" stop-opacity="0.65"/>
+            <stop offset="55%" stop-color="#b45309" stop-opacity="0.24"/>
+            <stop offset="100%" stop-color="#451a03" stop-opacity="0"/>
+          </radialGradient>
+
+          <radialGradient id="radio-dial-glow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#ffffff"/>
+            <stop offset="40%" stop-color="#fde047"/>
+            <stop offset="80%" stop-color="#f97316"/>
+            <stop offset="100%" stop-color="#ea580c" stop-opacity="0"/>
+          </radialGradient>
+
+          <!-- 5. Cinematic Outer Lens Vignette -->
+          <radialGradient id="cinematic-vignette" cx="50%" cy="50%" r="65%">
+            <stop offset="55%" stop-color="#000000" stop-opacity="0"/>
+            <stop offset="85%" stop-color="#020409" stop-opacity="0.65"/>
+            <stop offset="100%" stop-color="#000000" stop-opacity="0.95"/>
+          </radialGradient>
+
+          <!-- 6. Procedural Stonework Brick Pattern -->
+          <pattern id="cellar-stone-pattern" width="180" height="96" patternUnits="userSpaceOnUse">
+            <rect width="180" height="96" fill="none"/>
+            <rect x="4" y="4" width="82" height="40" rx="6" fill="#161b26" stroke="#090c12" stroke-width="3" opacity="0.65"/>
+            <rect x="92" y="4" width="84" height="40" rx="6" fill="#121722" stroke="#090c12" stroke-width="3" opacity="0.5"/>
+            <rect x="-38" y="50" width="84" height="40" rx="6" fill="#141824" stroke="#090c12" stroke-width="3" opacity="0.55"/>
+            <rect x="52" y="50" width="82" height="40" rx="6" fill="#181d29" stroke="#090c12" stroke-width="3" opacity="0.7"/>
+            <rect x="140" y="50" width="84" height="40" rx="6" fill="#131720" stroke="#090c12" stroke-width="3" opacity="0.5"/>
+            <path d="M 25 20 L 40 25 M 115 68 L 130 62" stroke="#0b0e14" stroke-width="2" stroke-linecap="round"/>
+          </pattern>
+        </defs>
+        
+
+        <!-- ================================================================= -->
+        <!-- LAYER 1: BACKGROUND & ARCHITECTURAL STONEWORK                     -->
+        <!-- ================================================================= -->
+        <g id="layer-bg">
+          <rect width="1920" height="1080" fill="url(#cellar-wall-grad)"/>
+          <rect width="1920" height="920" fill="url(#cellar-stone-pattern)" opacity="0.85"/>
+
+          <!-- Distressed Plaster Patches -->
+          <path d="M 650 180 Q 820 140 940 230 T 1120 420 Q 1020 560 820 520 T 650 180 Z" fill="#0d111a" opacity="0.75"/>
+          <path d="M 1220 140 Q 1480 120 1680 220 L 1720 790 L 1180 790 Z" fill="#131110" opacity="0.85"/>
+
+          <!-- Archway Alcove & Hidden Barrels -->
+          <path d="M 580 860 L 580 390 A 210 210 0 0 1 1000 390 L 1000 860 Z" fill="#080a0f" stroke="#1e2433" stroke-width="8"/>
+          <path d="M 605 860 L 605 405 A 185 185 0 0 1 975 405 L 975 860 Z" fill="#05070b"/>
+          <g opacity="0.45" transform="translate(640, 620)">
+            <ellipse cx="90" cy="110" rx="75" ry="95" fill="#1c1411" stroke="#090605" stroke-width="6"/>
+            <path d="M 22 75 Q 90 95 158 75 M 20 145 Q 90 165 160 145" stroke="#2d3340" stroke-width="8" fill="none"/>
+            <ellipse cx="215" cy="125" rx="68" ry="85" fill="#16100d" stroke="#090605" stroke-width="6"/>
+            <path d="M 152 95 Q 215 112 278 95 M 150 155 Q 215 172 280 155" stroke="#262b36" stroke-width="7" fill="none"/>
+          </g>
+
+          <!-- Street Level Cellar Window & Silhouetted Boots -->
+          <g id="street-grate-window">
+            <rect x="70" y="95" width="380" height="215" rx="10" fill="#081326" stroke="#1e293b" stroke-width="10"/>
+            <rect x="80" y="105" width="360" height="195" fill="#172554" opacity="0.7"/>
+            <circle cx="290" cy="145" r="95" fill="#60a5fa" opacity="0.35" filter="url(#blur-medium)"/>
+            <path d="M 75 275 Q 150 265 250 275 T 445 275 L 445 305 L 75 305 Z" fill="#1e293b"/>
+
+            <!-- German Patrol Boots Silhouette Outside -->
+            <g class="anim-boots" transform="translate(155, 118)">
+              <path d="M 35 0 L 75 0 L 70 115 C 70 125 98 135 108 148 C 112 155 105 162 92 162 L 22 162 C 15 162 15 145 18 132 L 26 115 Z" fill="#05070b" stroke="#1e293b" stroke-width="2"/>
+              <rect x="18" y="152" width="32" height="12" fill="#020305"/>
+              <path d="M 135 -10 L 178 -10 L 168 118 C 168 128 205 138 216 150 C 222 158 214 164 198 164 L 122 164 C 115 164 116 146 120 132 L 128 112 Z" fill="#030508" stroke="#1e293b" stroke-width="2"/>
+              <rect x="120" y="154" width="35" height="12" fill="#020305"/>
+              <path d="M 5 0 L 195 0 L 185 38 L 15 28 Z" fill="#090d16"/>
+              <path d="M 72 15 L 68 112 C 68 122 95 134 102 145" stroke="#60a5fa" stroke-width="3" fill="none" opacity="0.6"/>
+              <path d="M 172 10 L 165 115 C 165 125 198 136 208 148" stroke="#93c5fd" stroke-width="3" fill="none" opacity="0.7"/>
+            </g>
+
+            <!-- Iron Bars -->
+            <g stroke="#06080d" stroke-width="12" stroke-linecap="butt">
+              <line x1="145" y1="95" x2="145" y2="310"/>
+              <line x1="220" y1="95" x2="220" y2="310"/>
+              <line x1="295" y1="95" x2="295" y2="310"/>
+              <line x1="370" y1="95" x2="370" y2="310"/>
+              <line x1="70" y1="205" x2="450" y2="205" stroke-width="9"/>
+            </g>
+            <rect x="55" y="75" width="410" height="28" rx="4" fill="#1e2536" stroke="#090c12" stroke-width="4"/>
+            <rect x="55" y="298" width="415" height="32" rx="4" fill="#181f2e" stroke="#090c12" stroke-width="4"/>
+          </g>
+
+          <!-- Heavy Timber Beams -->
+          <g id="timber-structure">
+            <rect x="0" y="0" width="1920" height="78" fill="url(#wood-beam-grad)" stroke="#070504" stroke-width="4"/>
+            <path d="M 520 75 L 660 75 L 520 240 Z" fill="#160f0c" stroke="#070504" stroke-width="4"/>
+            <path d="M 1180 75 L 1040 75 L 1180 240 Z" fill="#160f0c" stroke="#070504" stroke-width="4"/>
+            <rect x="1150" y="70" width="68" height="830" fill="url(#wood-beam-grad)" stroke="#080605" stroke-width="5"/>
+            <path d="M 1172 110 L 1172 860 M 1195 160 L 1195 820" stroke="#0b0806" stroke-width="3" opacity="0.7"/>
+          </g>
+
+          <!-- Wooden Staircase -->
+          <g id="cellar-stairs">
+            <path d="M -20 420 L 620 920 L 620 980 L -20 980 Z" fill="#0d0907" stroke="#050403" stroke-width="5"/>
+            <g fill="#1c1410" stroke="#070504" stroke-width="4">
+              <rect x="20" y="430" width="135" height="28" rx="3"/>
+              <rect x="95" y="495" width="145" height="28" rx="3"/>
+              <rect x="175" y="560" width="155" height="28" rx="3"/>
+              <rect x="255" y="625" width="165" height="28" rx="3"/>
+              <rect x="335" y="690" width="175" height="30" rx="3"/>
+              <rect x="415" y="755" width="185" height="32" rx="3"/>
+              <rect x="495" y="820" width="195" height="34" rx="3"/>
+            </g>
+            <g stroke="#60a5fa" stroke-width="2.5" opacity="0.45" stroke-linecap="round">
+              <line x1="25" y1="432" x2="148" y2="432"/>
+              <line x1="100" y1="497" x2="232" y2="497"/>
+              <line x1="180" y1="562" x2="322" y2="562"/>
+              <line x1="260" y1="627" x2="410" y2="627"/>
+              <line x1="340" y1="692" x2="500" y2="692"/>
+            </g>
+            <path d="M 0 290 L 575 740" stroke="#261b15" stroke-width="18" stroke-linecap="round"/>
+            <path d="M 0 286 L 575 736" stroke="#60a5fa" stroke-width="2" stroke-linecap="round" opacity="0.4"/>
+          </g>
+
+          <!-- Floor & Secret Niche -->
+          <rect x="0" y="860" width="1920" height="220" fill="url(#floor-grad)"/>
+          <path d="M 0 860 L 1920 860" stroke="#060709" stroke-width="8"/>
+          <g id="secret-radio-alcove">
+            <rect x="1310" y="340" width="450" height="520" rx="8" fill="#0b0806" stroke="#1f1610" stroke-width="8"/>
+            <rect x="1690" y="350" width="140" height="500" fill="#17120e" stroke="#080605" stroke-width="6"/>
+            <rect x="1340" y="645" width="330" height="215" fill="#2b1d14" stroke="#0c0805" stroke-width="6"/>
+            <line x1="1340" y1="715" x2="1670" y2="715" stroke="#140d08" stroke-width="5"/>
+            <line x1="1340" y1="785" x2="1670" y2="785" stroke="#140d08" stroke-width="5"/>
+            <path d="M 1365 645 L 1365 860 M 1645 645 L 1645 860" stroke="#38261a" stroke-width="18"/>
+            <path d="M 1365 645 L 1365 860 M 1645 645 L 1645 860" stroke="#0c0805" stroke-width="4"/>
+          </g>
+        </g>
+
+        <!-- ================================================================= -->
+        <!-- LAYER 2: VOLUMETRIC LIGHTING & ATMOSPHERIC GRADIENTS              -->
+        <!-- ================================================================= -->
+        <g id="layer-lighting">
+          <g id="cold-light-group" style="opacity: 0.59;">
+            <rect x="0" y="0" width="1200" height="950" fill="url(#street-window-glow)"/>
+            <g opacity="0.85">
+              <polygon points="85,305 142,305 520,890 310,890" fill="url(#moonlight-beam)"/>
+              <polygon points="155,305 215,305 720,890 545,890" fill="url(#moonlight-beam)"/>
+              <polygon points="230,305 290,305 930,890 755,890" fill="url(#moonlight-beam)"/>
+              <polygon points="305,305 365,305 1120,890 960,890" fill="url(#moonlight-beam)"/>
+              <polygon points="380,305 440,305 1290,890 1145,890" fill="url(#moonlight-beam)"/>
+            </g>
+            <ellipse cx="680" cy="895" rx="380" ry="38" fill="#38bdf8" opacity="0.12" filter="url(#blur-medium)"/>
+          </g>
+
+          <g id="warm-light-group" class="anim-radio-glow" style="opacity: 0.98;">
+            <circle cx="1485" cy="555" r="460" fill="url(#radio-amber-primary)" filter="url(#blur-heavy)"/>
+            <circle cx="1455" cy="565" r="220" fill="url(#radio-amber-primary)" opacity="0.85"/>
+            <rect x="1212" y="320" width="8" height="480" fill="#f59e0b" opacity="0.45" filter="url(#blur-soft)"/>
+          </g>
+        </g>
+
+        <!-- ================================================================= -->
+        <!-- LAYER 3: VINTAGE TUBE RADIO & FOREGROUND PROPS                    -->
+        <!-- ================================================================= -->
+        <g id="layer-props">
+          <g id="vintage-radio" transform="translate(1395, 455)">
+            <path d="M 10 190 L 10 85 C 10 15 170 15 170 85 L 170 190 Z" fill="#451a03" stroke="#090503" stroke-width="7" stroke-linejoin="round"/>
+            <path d="M 24 182 L 24 90 C 24 34 156 34 156 90 L 156 182 Z" fill="#290f02" stroke="#1c0a01" stroke-width="5"/>
+            <rect x="0" y="182" width="180" height="18" rx="4" fill="#271004" stroke="#090503" stroke-width="6"/>
+
+            <circle cx="90" cy="82" r="38" fill="#78350f" stroke="#090503" stroke-width="5"/>
+            <circle cx="90" cy="82" r="32" fill="url(#radio-dial-glow)" opacity="0.65"/>
+            <path d="M 90 46 L 90 118 M 54 82 L 126 82 M 64 56 L 116 108 M 116 56 L 64 108" stroke="#1c0a01" stroke-width="5" stroke-linecap="round"/>
+
+            <rect x="38" y="130" width="104" height="26" rx="5" fill="#fef08a" stroke="#090503" stroke-width="4" filter="url(#radio-bloom)"/>
+            <rect x="38" y="130" width="104" height="26" rx="5" fill="url(#radio-dial-glow)"/>
+            <path d="M 48 148 L 48 138 M 62 148 L 62 141 M 76 148 L 76 136 M 90 148 L 90 141 M 104 148 L 104 136 M 118 148 L 118 141 M 132 148 L 132 138" stroke="#451a03" stroke-width="2.5"/>
+            <line x1="98" y1="132" x2="98" y2="154" stroke="#dc2626" stroke-width="3.5"/>
+
+            <circle cx="52" cy="170" r="9" fill="#1c0a01" stroke="#090503" stroke-width="3"/>
+            <circle cx="90" cy="170" r="7" fill="#1c0a01" stroke="#090503" stroke-width="3"/>
+            <circle cx="128" cy="170" r="9" fill="#1c0a01" stroke="#090503" stroke-width="3"/>
+            <path d="M 155 45 C 195 10 210 -65 185 -115" stroke="#b45309" stroke-width="3" fill="none" stroke-dasharray="6 3"/>
+          </g>
+
+          <g transform="translate(1595, 608)">
+            <rect x="0" y="12" width="22" height="25" rx="2" fill="#d6d3d1" stroke="#090503" stroke-width="4"/>
+            <ellipse cx="11" cy="12" rx="11" ry="4" fill="#f5f5f4" stroke="#090503" stroke-width="3"/>
+            <path d="M 11 -8 C 17 0 16 8 11 10 C 6 8 5 0 11 -8 Z" fill="#fde047" filter="url(#blur-soft)"/>
+            <path d="M 11 -6 C 15 0 14 7 11 9 C 8 7 7 0 11 -6 Z" fill="#ffffff"/>
+          </g>
+        </g>
+
+        <!-- ================================================================= -->
+        <!-- LAYER 4: MINIMALIST CHIBI CHARACTER RIGS (RIM-LIT & ACTING)       -->
+        <!-- ================================================================= -->
+        <g id="layer-characters">
+          <!-- The Wife on Stairs -->
+          <g id="char-wife" transform="translate(475, 650)">
+            <ellipse cx="10" cy="155" rx="75" ry="22" fill="#020305" opacity="0.8"/>
+            <path d="M -45 65 C -65 110 -55 145 -25 150 L 55 150 C 75 140 65 95 40 65 Z" fill="#1e2430" stroke="#050608" stroke-width="8" stroke-linejoin="round"/>
+            <path d="M -38 -25 C -52 15 -50 65 -40 85 L 42 85 C 52 60 44 10 28 -25 Z" fill="#2c3545" stroke="#050608" stroke-width="8" stroke-linejoin="round"/>
+            <!-- Cold Moonlight Rim Light on Back -->
+            <path d="M -35 -20 C -48 15 -46 60 -36 80" stroke="#60a5fa" stroke-width="5" fill="none" stroke-linecap="round" opacity="0.65"/>
+            <path d="M -28 -25 L 15 35 M 25 -25 L -18 35" stroke="#161b24" stroke-width="7" stroke-linecap="round"/>
+
+            <path d="M -32 -5 C -75 20 -95 45 -115 35" stroke="#050608" stroke-width="18" stroke-linecap="round" fill="none"/>
+            <circle cx="-118" cy="34" r="12" fill="#ffffff" stroke="#050608" stroke-width="6"/>
+
+            <!-- Head -->
+            <g transform="translate(5, -95) rotate(-14)">
+              <circle cx="-52" cy="-18" r="26" fill="#271c18" stroke="#050608" stroke-width="8"/>
+              <circle cx="0" cy="0" r="64" fill="#e2e8f0" stroke="#050608" stroke-width="8.5"/>
+              <path d="M -45 -45 A 64 64 0 0 0 -45 45 A 52 62 0 0 1 -45 -45 Z" fill="#94a3b8" opacity="0.45"/>
+              <path d="M -62 -15 C -55 -60 15 -72 52 -32 C 25 -42 -25 -35 -62 -15 Z" fill="#271c18" stroke="#050608" stroke-width="7" stroke-linejoin="round"/>
+
+              <g transform="translate(-8, -8)">
+                <ellipse cx="-18" cy="0" rx="11" ry="14" fill="#ffffff" stroke="#050608" stroke-width="5"/>
+                <circle cx="-22" cy="-5" r="4.5" fill="#050608"/>
+                <ellipse cx="16" cy="2" rx="11" ry="14" fill="#ffffff" stroke="#050608" stroke-width="5"/>
+                <circle cx="12" cy="-3" r="4.5" fill="#050608"/>
+                <path d="M -34 -16 Q -18 -28 -5 -12" stroke="#050608" stroke-width="5.5" stroke-linecap="round" fill="none"/>
+                <path d="M 3 -10 Q 18 -26 32 -12" stroke="#050608" stroke-width="5.5" stroke-linecap="round" fill="none"/>
+                <path d="M -26 17 Q -18 21 -10 17 M 8 19 Q 16 23 24 19" stroke="#050608" stroke-width="3" stroke-linecap="round" fill="none" opacity="0.6"/>
+              </g>
+
+              <ellipse cx="2" cy="28" rx="9" ry="7" fill="#050608"/>
+              <path class="anim-sweat" d="M 42 -12 C 48 -2 48 6 42 10 C 36 6 36 -2 42 -12 Z" fill="#38bdf8" stroke="#050608" stroke-width="3"/>
+            </g>
+
+            <path d="M 28 -5 C 65 10 55 -40 22 -62" stroke="#050608" stroke-width="18" stroke-linecap="round" fill="none"/>
+            <g transform="translate(16, -68)">
+              <circle cx="0" cy="0" r="13" fill="#ffffff" stroke="#050608" stroke-width="6"/>
+              <rect x="-5" y="-26" width="10" height="24" rx="5" fill="#ffffff" stroke="#050608" stroke-width="5.5"/>
+            </g>
+          </g>
+
+          <!-- The French Baker -->
+          <g id="char-baker" transform="translate(1235, 665)">
+            <ellipse cx="15" cy="205" rx="115" ry="26" fill="#020305" opacity="0.9"/>
+            <path d="M -55 95 L -80 195 L -35 195 L -15 115" fill="#141821" stroke="#050608" stroke-width="10" stroke-linejoin="round"/>
+            <path d="M 15 95 L 35 195 L 80 195 L 55 110" fill="#141821" stroke="#050608" stroke-width="10" stroke-linejoin="round"/>
+            <ellipse cx="-65" cy="198" rx="28" ry="12" fill="#090b10" stroke="#050608" stroke-width="6"/>
+            <ellipse cx="62" cy="198" rx="28" ry="12" fill="#090b10" stroke="#050608" stroke-width="6"/>
+
+            <g transform="rotate(16)">
+              <path d="M -55 -45 C -72 15 -68 85 -48 115 L 55 115 C 72 80 65 10 48 -45 Z" fill="#2b303c" stroke="#050608" stroke-width="9" stroke-linejoin="round"/>
+              <path d="M -25 -42 L 45 -42 L 58 115 L -35 115 Z" fill="#cbd5e1" stroke="#050608" stroke-width="7" stroke-linejoin="round"/>
+              <path d="M 42 -38 L 54 110" stroke="#fbbf24" stroke-width="6" stroke-linecap="round" opacity="0.8"/>
+            </g>
+
+            <path d="M -35 -25 C -85 -40 -75 -115 -22 -125" stroke="#050608" stroke-width="20" stroke-linecap="round" fill="none"/>
+            <circle cx="-18" cy="-125" r="14" fill="#ffffff" stroke="#050608" stroke-width="6.5"/>
+
+            <g transform="translate(52, -108) rotate(12)">
+              <circle cx="0" cy="0" r="72" fill="#f8fafc" stroke="#050608" stroke-width="9"/>
+              <!-- Warm Amber Face Rim Glow -->
+              <path d="M 35 -62 A 72 72 0 0 1 38 60 A 58 68 0 0 0 35 -62 Z" fill="#f59e0b" opacity="0.55"/>
+
+              <path d="M -68 -35 C -85 -75 -10 -95 55 -55 C 65 -48 48 -35 25 -40 C -10 -48 -45 -42 -68 -35 Z" fill="#111827" stroke="#050608" stroke-width="8" stroke-linejoin="round"/>
+              <path d="M -12 -78 L -18 -90" stroke="#050608" stroke-width="6" stroke-linecap="round"/>
+
+              <g transform="translate(10, -6)">
+                <ellipse cx="-14" cy="0" rx="11" ry="13" fill="#ffffff" stroke="#050608" stroke-width="5.5"/>
+                <circle cx="-18" cy="-2" r="4.5" fill="#050608"/>
+                <ellipse cx="22" cy="-2" rx="11" ry="13" fill="#ffffff" stroke="#050608" stroke-width="5.5"/>
+                <circle cx="18" cy="-4" r="4.5" fill="#050608"/>
+                <path d="M -32 -18 L -2 -10" stroke="#050608" stroke-width="7" stroke-linecap="round"/>
+                <path d="M 10 -10 L 38 -20" stroke="#050608" stroke-width="7" stroke-linecap="round"/>
+                <path d="M -22 16 Q -14 21 -6 16 M 14 14 Q 22 19 30 14" stroke="#050608" stroke-width="3.5" fill="none" opacity="0.65"/>
+              </g>
+
+              <path d="M 12 24 C -5 18 -18 28 -24 35 C -10 38 5 34 14 28 C 23 34 38 38 50 33 C 44 25 30 18 12 24 Z" fill="#1f2937" stroke="#050608" stroke-width="5" stroke-linejoin="round"/>
+              <path d="M 0 42 Q 14 37 28 42" stroke="#050608" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+              <path class="anim-sweat" d="M -38 -10 C -32 0 -32 10 -38 14 C -44 10 -44 0 -38 -10 Z" fill="#fde047" stroke="#050608" stroke-width="3.5"/>
+            </g>
+
+            <path d="M 38 -5 C 85 25 145 5 198 -35" stroke="#050608" stroke-width="20" stroke-linecap="round" fill="none"/>
+            <path d="M 42 -10 C 85 18 142 0 192 -38" stroke="#f59e0b" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.7"/>
+            <circle cx="205" cy="-38" r="15" fill="#fef08a" stroke="#050608" stroke-width="6.5"/>
+          </g>
+        </g>
+
+        <!-- ================================================================= -->
+        <!-- LAYER 5: FOREGROUND VFX, DUST MOTES, FRAME ARCH & FILM GRAIN      -->
+        <!-- ================================================================= -->
+        <g id="layer-vfx">
+          <g class="anim-wave-1" transform="translate(1415, 520)">
+            <path d="M 0 0 A 35 35 0 0 0 -28 25" stroke="#fde047" stroke-width="3.5" stroke-linecap="round" fill="none" opacity="0.8"/>
+            <path d="M -12 -12 A 55 55 0 0 0 -48 32" stroke="#f59e0b" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="6 6" fill="none" opacity="0.65"/>
+            <g transform="translate(-55, -20) rotate(-12)" fill="#fef08a" opacity="0.85">
+              <ellipse cx="0" cy="18" rx="7" ry="5" transform="rotate(-20 0 18)"/>
+              <rect x="4" y="-6" width="3" height="24"/>
+              <path d="M 7 -6 Q 18 -2 16 8" stroke="#fef08a" stroke-width="3" fill="none"/>
+            </g>
+          </g>
+
+          <g class="anim-wave-2" transform="translate(1400, 545)">
+            <g fill="#fde047" opacity="0.75" transform="rotate(-18)">
+              <circle cx="-35" cy="0" r="3.5"/>
+              <circle cx="-22" cy="0" r="3.5"/>
+              <circle cx="-9" cy="0" r="3.5"/>
+              <rect x="2" y="-3.5" width="18" height="7" rx="3.5"/>
+            </g>
+            <text x="-135" y="-32" fill="#fef08a" font-family="Playfair Display, serif" font-style="italic" font-size="19" opacity="0.7" letter-spacing="1">
+              "Ici Londres..."
+            </text>
+          </g>
+
+          <!-- Floating Volumetric Dust Motes (Dual Tone) -->
+          <g class="anim-dust" fill="#bae6fd">
+            <circle cx="260" cy="410" r="2.5" opacity="0.6"/>
+            <circle cx="340" cy="485" r="3.5" opacity="0.4"/>
+            <circle cx="480" cy="430" r="2" opacity="0.7"/>
+            <circle cx="590" cy="590" r="3" opacity="0.5"/>
+            <circle cx="420" cy="670" r="2.5" opacity="0.45"/>
+            <circle cx="740" cy="720" r="3.5" opacity="0.35"/>
+          </g>
+          <g class="anim-dust" fill="#fde047">
+            <circle cx="1360" cy="490" r="2.5" opacity="0.65"/>
+            <circle cx="1440" cy="420" r="2" opacity="0.5"/>
+            <circle cx="1540" cy="510" r="3" opacity="0.45"/>
+            <circle cx="1310" cy="580" r="2" opacity="0.55"/>
+          </g>
+
+          <!-- 2.5D Keyhole Framing Arch -->
+          <path d="M 0 0 L 1920 0 L 1920 1080 L 0 1080 Z
+                   M 55 55 L 55 995 Q 55 1025 85 1025 L 1835 1025 Q 1865 1025 1865 995 L 1865 55 Q 1865 25 1835 25 L 85 25 Q 55 25 55 55 Z" 
+                fill="#020306" opacity="0.88" fill-rule="evenodd"/>
+
+          <!-- Vignette & Film Grain Overlays -->
+          <rect width="1920" height="1080" fill="url(#cinematic-vignette)" pointer-events="none"/>
+          <rect width="1920" height="1080" fill="#ffffff" filter="url(#film-grain)" opacity="0.45" pointer-events="none"/>
+        </g>
+      </svg>
+      

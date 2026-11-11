@@ -1,0 +1,30 @@
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Secrets & tokens (NEVER commit these)
+*token*.json
+*secret*.json
+client_secret*.json
+youtube_token.json
+*.env
+.env*
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+
+# Build artifacts
+*.mp4
+*.wav
+*.mp3
+*.egg-info/
+dist/
+build/
