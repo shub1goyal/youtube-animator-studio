@@ -179,6 +179,25 @@ class CinematicSvgEngine:
             svg += '</g>\n'
             return svg
 
+        elif prop_type == "war_briefing_table":
+            svg = f'<g id="prop-briefing-table" transform="translate({x}, {y}) scale({scale})">\n'
+            svg += '  <!-- Heavy Steel War Room Briefing Table -->\n'
+            svg += '  <rect x="-320" y="-30" width="640" height="45" rx="6" fill="#1e293b" stroke="#050608" stroke-width="5"/>\n'
+            svg += '  <rect x="-310" y="-24" width="620" height="12" fill="#334155"/>\n'
+            svg += '  <!-- Tactical Grid Inset -->\n'
+            svg += '  <rect x="-260" y="-12" width="520" height="20" rx="3" fill="#0f172a" stroke="#38bdf8" stroke-width="1.5" opacity="0.85"/>\n'
+            svg += '  <!-- Table Legs -->\n'
+            svg += '  <rect x="-290" y="15" width="28" height="150" fill="#0f172a" stroke="#050608" stroke-width="4"/>\n'
+            svg += '  <rect x="262" y="15" width="28" height="150" fill="#0f172a" stroke="#050608" stroke-width="4"/>\n'
+            svg += '  <rect x="-14" y="15" width="28" height="150" fill="#090d16" stroke="#050608" stroke-width="4"/>\n'
+            svg += '  <!-- Status Indicators / Tactical Map Dossier on Table -->\n'
+            svg += '  <rect x="-180" y="-22" width="60" height="8" rx="2" fill="#ef4444" opacity="0.9"/>\n'
+            svg += '  <rect x="-100" y="-22" width="60" height="8" rx="2" fill="#facc15" opacity="0.9"/>\n'
+            svg += '  <rect x="60" y="-24" width="110" height="16" rx="2" fill="#fef3c7" stroke="#050608" stroke-width="1.5"/>\n'
+            svg += '  <line x1="70" y1="-16" x2="160" y2="-16" stroke="#b45309" stroke-width="2"/>\n'
+            svg += '</g>\n'
+            return svg
+
         elif prop_type == "flaming_torch":
             svg = f'<g id="prop-torch" transform="translate({x}, {y}) scale({scale})">\n'
             svg += '  <rect x="-10" y="0" width="20" height="90" rx="4" fill="#78350f" stroke="#090a0f" stroke-width="4"/>\n'
@@ -235,12 +254,12 @@ class CinematicSvgEngine:
                 "bg_color": "#0d1117",
                 "pattern": "brick-wall-pattern",
                 "props": [
-                    {"type": "bohr_atom", "x": 960, "y": 420, "scale": 1.4},
-                    {"type": "erlenmeyer_flask", "x": 340, "y": 650, "scale": 1.2}
+                    {"type": "vacuum_tube_radio", "x": 340, "y": 820, "scale": 1.3},
+                    {"type": "war_briefing_table", "x": 960, "y": 870, "scale": 1.0}
                 ],
                 "characters": [
-                    {"cx": 620, "cy": 690, "name": "Commander", "pose": "ear_listening", "body_color": "#1e293b", "rim_color": "#ef4444", "rim_side": "left"},
-                    {"cx": 1300, "cy": 690, "name": "Physicist", "pose": "head_clutch_panic", "body_color": "#334155", "rim_color": "#facc15", "rim_side": "right"}
+                    {"cx": 580, "cy": 890, "name": "Commander", "pose": "ear_listening", "body_color": "#1e3a8a", "rim_color": "#ef4444", "rim_side": "left"},
+                    {"cx": 1340, "cy": 890, "name": "Analyst", "pose": "chin_stroke_thinking", "body_color": "#7f1d1d", "rim_color": "#facc15", "rim_side": "right"}
                 ],
                 "alert": {"x": 960, "y": 260, "text": "ALERT RED!", "bg_color": "#dc2626"}
             }
@@ -265,11 +284,10 @@ class CinematicSvgEngine:
         svg += '  <g id="layer-bg" filter="url(#bg-gaussian-node)">\n'
         svg += f'    <rect width="1920" height="1080" fill="{bg_color}"/>\n'
         svg += f'    <rect width="1920" height="1080" fill="url(#{pattern})" opacity="0.65"/>\n'
-        svg += '    <path d="M 0 0 L 320 0 L 320 1080 L 0 1080 Z" fill="#0b0806" opacity="0.85"/>\n'
-        svg += '    <path d="M 1600 0 L 1920 0 L 1920 1080 L 1600 1080 Z" fill="#0b0806" opacity="0.85"/>\n'
-        svg += '    <path d="M 320 0 Q 960 220 1600 0 Z" fill="#0e0a08"/>\n'
-        svg += '    <rect x="0" y="860" width="1920" height="220" fill="#080604"/>\n'
-        svg += '    <line x1="0" y1="860" x2="1920" y2="860" stroke="#1f1812" stroke-width="4"/>\n'
+        svg += '    <path d="M 0 0 L 240 0 L 240 1080 L 0 1080 Z" fill="#0b0806" opacity="0.72"/>\n'
+        svg += '    <path d="M 1680 0 L 1920 0 L 1920 1080 L 1680 1080 Z" fill="#0b0806" opacity="0.72"/>\n'
+        svg += '    <rect x="0" y="880" width="1920" height="200" fill="#080604"/>\n'
+        svg += '    <line x1="0" y1="880" x2="1920" y2="880" stroke="#1f1812" stroke-width="4"/>\n'
         svg += '  </g>\n\n'
 
         # LAYER 2: Midground Props
@@ -278,34 +296,9 @@ class CinematicSvgEngine:
             svg += "    " + cls.draw_animated_prop(p.get("type"), p.get("x", 960), p.get("y", 540), p.get("scale", 1.0))
         svg += '  </g>\n\n'
 
-        # LAYER 3: Character Rigs
-        svg += '  <g id="layer-characters">\n'
-        for char in characters:
-            cx = char.get("cx", 960)
-            cy = char.get("cy", 700)
-            c_name = char.get("name", "Character")
-            c_exp = char.get("expression", "neutral")
-
-            svg += f'    <g id="char-{xml_escape(str(c_name)).lower().replace(" ", "-")}" transform="translate({cx - 160}, {cy - 220})">\n'
-            svg += '      <ellipse cx="160" cy="425" rx="85" ry="18" fill="#020305" opacity="0.75" filter="url(#soft-shadow)"/>\n'
-            svg += '      <g class="svg-anim-breathe">\n'
-            svg += f'        <rect x="114" y="214" width="92" height="116" rx="14" fill="{char.get("body_color", "#1e293b")}" stroke="#050608" stroke-width="5"/>\n'
-            svg += '        <rect x="126" y="325" width="26" height="75" fill="#0f172a" stroke="#050608" stroke-width="4.5"/>\n'
-            svg += '        <rect x="168" y="325" width="26" height="75" fill="#0f172a" stroke="#050608" stroke-width="4.5"/>\n'
-            svg += '        <ellipse cx="160" cy="144" rx="60" ry="68" fill="#ffffff" stroke="#050608" stroke-width="5.5"/>\n'
-            svg += '        <g class="svg-anim-blink">\n'
-            svg += '          <circle cx="140" cy="144" r="5" fill="#050608"/>\n'
-            svg += '          <circle cx="180" cy="144" r="5" fill="#050608"/>\n'
-            svg += '        </g>\n'
-            if c_exp in ["shocked", "panicked"]:
-                svg += '        <ellipse cx="160" cy="186" rx="12" ry="16" fill="#050608"/>\n'
-            else:
-                svg += '        <line x1="150" y1="186" x2="170" y2="186" stroke="#050608" stroke-width="4.5" stroke-linecap="round"/>\n'
-            svg += f'        <rect x="85" y="420" width="150" height="24" rx="4" fill="#0f172a" opacity="0.9"/>\n'
-            svg += f'        <text x="160" y="437" font-family="Arial, sans-serif" font-weight="bold" font-size="12" fill="#ffffff" text-anchor="middle">{xml_escape(str(c_name))}</text>\n'
-            svg += '      </g>\n'
-            svg += '    </g>\n'
-        svg += '  </g>\n\n'
+        # NOTE: Layer 3 (Character Rigs) is intentionally omitted — characters are rendered
+        # exclusively as Canvas skeletal puppets in generate_interactive_movie_html() to
+        # prevent ghost-clone duplicates (static SVG chars behind canvas actors).
 
         # LAYER 4: Atmospheric Lighting & Alert
         svg += '  <g id="layer-lighting">\n'
@@ -393,8 +386,17 @@ class CinematicSvgEngine:
       pointer-events: none;
     }}
     #subtitles-box {{
-      position: absolute; bottom: 80px; width: 100%; text-align: center;
-      color: #ffffff; font-size: 38px; font-weight: 800; text-shadow: 0 4px 12px rgba(0,0,0,0.9);
+      position: absolute; bottom: 55px; width: 100%; text-align: center;
+      pointer-events: none; z-index: 50;
+    }}
+    #subtitle-pill {{
+      display: inline-block; background: rgba(5,6,8,0.84);
+      border: 2px solid rgba(250,204,21,0.45); border-radius: 38px;
+      padding: 10px 42px; max-width: 1540px;
+      color: #ffffff; font-family: 'Inter', 'Arial Black', sans-serif;
+      font-size: 42px; font-weight: 800; line-height: 1.35;
+      text-shadow: 0 3px 10px rgba(0,0,0,0.95);
+      white-space: normal; word-break: break-word;
     }}
     .sub-highlight {{
       color: #facc15; display: inline-block; transform: scale(1.12);
@@ -415,7 +417,7 @@ class CinematicSvgEngine:
 
     <!-- Pinned Screen-Space Post-FX & Subtitles -->
     <div id="overlay-ui">
-      <div id="subtitles-box"><span id="subtitle-text"></span></div>
+      <div id="subtitles-box"><span id="subtitle-pill"><span id="subtitle-text"></span></span></div>
     </div>
   </div>
 
@@ -432,13 +434,15 @@ class CinematicSvgEngine:
 
     // Initialize Universal Skeletal Actors
     const actorLead = new SkeletalPuppet({{
-      name: "Lead Actor", x: 680, y: 840, scale: 1.15, facing: 1,
-      coatColor: "#1e3a8a", vestColor: "#facc15", skinColor: "#f8fafc"
+      name: "Lead Actor", x: 580, y: 890, scale: 1.15, facing: 1,
+      coatColor: "#1e3a8a", vestColor: "#facc15", skinColor: "#fae3cb",
+      hatType: "peaked_cap", tieColor: "#dc2626"
     }});
 
     const actorRival = new SkeletalPuppet({{
-      name: "Rival Actor", x: 1240, y: 840, scale: 1.15, facing: -1,
-      coatColor: "#7c2d12", vestColor: "#cbd5e1", skinColor: "#f8fafc"
+      name: "Rival Actor", x: 1340, y: 890, scale: 1.15, facing: -1,
+      coatColor: "#7f1d1d", vestColor: "#cbd5e1", skinColor: "#fae3cb",
+      hasGlasses: true
     }});
 
     function doRenderFrame(timeSec) {{

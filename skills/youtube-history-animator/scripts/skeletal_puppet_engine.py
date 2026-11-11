@@ -1,24 +1,37 @@
 """
-skeletal_puppet_engine.py
+skills/youtube-history-animator/scripts/skeletal_puppet_engine.py
 Python companion module for Skeletal IK Puppet configurations,
-bounding boxes, and behavior sequence generator.
+bounding boxes, and behavior sequence generator matching broadcast OverSimplified standards.
 """
 
 import math
 
 
 class SkeletalPuppetPython:
-    """Python-side representation of skeletal character rig for metadata & layout."""
+    """Python-side representation of skeletal character rig for layout & scene composition."""
 
-    def __init__(self, name="Actor", x=960, y=820, scale=1.0, facing=1):
+    def __init__(self, name="Actor", x=960, y=890, scale=1.0, facing=1, hat_type=None):
         self.name = name
         self.x = x
         self.y = y
         self.scale = scale
         self.facing = facing
+        self.hat_type = hat_type
+
+        # Broadcast proportions (~480px total height)
+        s = self.scale
+        self.torso_width = 100 * s
+        self.torso_height = 160 * s
+        self.upper_arm_length = 76 * s
+        self.forearm_length = 70 * s
+        self.thigh_length = 80 * s
+        self.shin_length = 76 * s
+        self.head_radius_x = 64 * s
+        self.head_radius_y = 72 * s
 
     @staticmethod
     def solve_two_bone_ik(origin_x, origin_y, target_x, target_y, l1, l2, flip=False):
+        """Analytical 2-bone IK solver using Law of Cosines."""
         dx = target_x - origin_x
         dy = target_y - origin_y
         dist = math.sqrt(dx * dx + dy * dy)
@@ -41,4 +54,3 @@ class SkeletalPuppetPython:
             "joint_x": origin_x + math.cos(bone1_angle) * l1,
             "joint_y": origin_y + math.sin(bone1_angle) * l1
         }
-

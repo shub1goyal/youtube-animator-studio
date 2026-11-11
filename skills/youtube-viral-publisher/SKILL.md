@@ -1,4 +1,4 @@
-﻿---
+---
 name: youtube-viral-publisher
 description: >-
   Automates YouTube channel posting, viral packaging, and video optimization. Automatically detects client_secret_*.json from Downloads, authenticates via YouTube Data API v3 OAuth2, synthesizes high-CTR A/B titles, timestamped chapters, SEO descriptions, 500-char tags, high-CTR 1280x720 thumbnails, and engagement pinned comments, then performs chunked resumable 1080p uploads with automated thumbnail and comment injection.

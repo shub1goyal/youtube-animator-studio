@@ -109,8 +109,8 @@ class HybridAssetGenerator:
             svg += '  <rect x="0" y="860" width="1920" height="220" fill="#090d16"/>\n'
             svg += '  <line x1="0" y1="860" x2="1920" y2="860" stroke="#334155" stroke-width="4"/>\n'
 
-        # Volumetric Warm Sunbeam & Vignette
-        svg += '  <polygon points="0,0 650,0 1050,1080 0,1080" fill="url(#warmRay)"/>\n'
+        # Volumetric Atmosphere & Vignette (soft radial rather than harsh polygon)
+        svg += '  <rect width="1920" height="1080" fill="url(#warmRay)" opacity="0.6"/>\n'
         svg += '  <rect width="1920" height="1080" fill="url(#vignette)"/>\n'
         svg += '</svg>\n'
         return svg

@@ -174,13 +174,13 @@ def build_contact_sheet(frame_paths, timestamps, out_path, cols=4, rows=3, title
         # Border
         draw.rectangle([(x, y), (x + thumb_w, y + thumb_h)], outline=(51, 65, 85), width=2)
 
-        # Timestamp badge
+        # Timestamp badge (top-right corner to avoid obscuring bottom subtitle pill)
         badge_text = f"#{idx+1:02d} | {t_val:.2f}s"
-        badge_w = 90
+        badge_w = 95
         badge_h = 22
-        bx = x + 8
-        by = y + thumb_h - badge_h - 8
-        draw.rectangle([(bx, by), (bx + badge_w, by + badge_h)], fill=(15, 23, 42, 220), outline=(245, 158, 11), width=1)
+        bx = x + thumb_w - badge_w - 8
+        by = y + 8
+        draw.rectangle([(bx, by), (bx + badge_w, by + badge_h)], fill=(15, 23, 42, 230), outline=(245, 158, 11), width=1)
         draw.text((bx + 8, by + 4), badge_text, fill=(255, 255, 255))
 
     # Footer note
