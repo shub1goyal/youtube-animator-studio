@@ -210,8 +210,21 @@ class GeoJsonMapEngine:
             y = 540.0 - (lat - center_lat) * scale
             return round(x, 1), round(y, 1)
 
-        # 2. Render Base SVG Structure
-        svg = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+        # Compute primary target centroid on canvas
+        primary_cx, primary_cy = 960.0, 540.0
+        if targets:
+            match_key = None
+            for k in DEFAULT_CAPITALS:
+                if any(k.lower() in t.lower() or t.lower() in k.lower() for t in targets):
+                    match_key = k
+                    break
+            if match_key:
+                lon, lat, _ = DEFAULT_CAPITALS[match_key]
+                primary_cx, primary_cy = project(lon, lat)
+
+        # 2. Render Base SVG Structure with data-target centroid attributes
+        svg = f'<svg id="svg-map-root" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080" data-target-x="{primary_cx}" data-target-y="{primary_cy}">\n'
+        svg += """
   <defs>
     <style type="text/css">
       @keyframes radarPing {

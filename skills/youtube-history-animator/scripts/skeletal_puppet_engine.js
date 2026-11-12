@@ -224,13 +224,21 @@ class SkeletalPuppet {
       this.torsoAngle = stride * 0.04;
 
     } else {
-      // Idle
+      // Idle / Listening
       this.torsoAngle = breath;
-      this.headAngle = -breath * 0.5;
-      this.leftArm.shoulder = 0.22 + Math.sin(t * 1.5) * 0.04;
-      this.leftArm.elbow = 0.35;
-      this.rightArm.shoulder = -0.22 - Math.sin(t * 1.5) * 0.04;
-      this.rightArm.elbow = 0.35;
+      if (options.isListening) {
+        this.headAngle = -0.09 + Math.sin(t * 1.6) * 0.03; // angled toward speaker
+        this.rightArm.shoulder = 0.35;
+        this.rightArm.elbow = 1.35; // hand thoughtfully placed near chin
+        this.leftArm.shoulder = -0.22;
+        this.leftArm.elbow = 0.45;
+      } else {
+        this.headAngle = -breath * 0.5;
+        this.leftArm.shoulder = 0.22 + Math.sin(t * 1.5) * 0.04;
+        this.leftArm.elbow = 0.35;
+        this.rightArm.shoulder = -0.22 - Math.sin(t * 1.5) * 0.04;
+        this.rightArm.elbow = 0.35;
+      }
       this.leftLeg.hip = 0.05;
       this.leftLeg.knee = 0.04;
       this.rightLeg.hip = -0.05;
@@ -314,7 +322,7 @@ class SkeletalPuppet {
     ctx.translate(0, -325 * s + this.torsoAngle * 15 * s);
     ctx.rotate(this.headAngle);
 
-    // Head Base (Egg/Oval)
+    // Head Base (Clean OverSimplified egg/oval with zero side ovals)
     ctx.fillStyle = this.skinColor;
     ctx.strokeStyle = "#050608";
     ctx.lineWidth = 7.0 * s;
@@ -322,12 +330,6 @@ class SkeletalPuppet {
     ctx.ellipse(0, 0, this.headRadiusX, this.headRadiusY, 0, 0, Math.PI * 2);
     ctx.fill();
     ctx.stroke();
-
-    // Hair / Sideburns
-    ctx.fillStyle = "#1e293b";
-    ctx.beginPath();
-    ctx.ellipse(-this.headRadiusX + 8 * s, 0, 10 * s, 26 * s, 0, 0, Math.PI * 2);
-    ctx.fill();
 
     // Eyes (OverSimplified Large expressive whites)
     if (!this.isBlinking) {

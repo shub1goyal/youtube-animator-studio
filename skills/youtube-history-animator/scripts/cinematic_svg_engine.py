@@ -360,13 +360,11 @@ class CinematicSvgEngine:
         # exclusively as Canvas skeletal puppets in generate_interactive_movie_html() to
         # prevent ghost-clone duplicates (static SVG chars behind canvas actors).
 
-        # LAYER 4: Atmospheric Lighting & Alert (Soft Radial Pools, NO harsh V-triangle cones)
+        # LAYER 4: Atmospheric Lighting & Alert (Crisp, clean, no muddy circles)
         svg += '  <g id="layer-lighting">\n'
-        svg += '    <circle cx="580" cy="500" r="480" fill="url(#warm-volumetric-beam)" opacity="0.3" filter="url(#glow-gold)"/>\n'
-        svg += '    <circle cx="1340" cy="500" r="480" fill="url(#cool-window-spill)" opacity="0.25" filter="url(#glow-teal)"/>\n'
         svg += '    <g class="svg-anim-dust">\n'
-        svg += '      <circle cx="520" cy="380" r="3.5" fill="#fef08a" opacity="0.75" filter="url(#glow-gold)"/>\n'
-        svg += '      <circle cx="1120" cy="410" r="3.0" fill="#38bdf8" opacity="0.7" filter="url(#glow-teal)"/>\n'
+        svg += '      <circle cx="520" cy="380" r="3.5" fill="#fef08a" opacity="0.65" filter="url(#glow-gold)"/>\n'
+        svg += '      <circle cx="1120" cy="410" r="3.0" fill="#38bdf8" opacity="0.6" filter="url(#glow-teal)"/>\n'
         svg += '    </g>\n'
         if alert:
             ax = alert.get("x", 960)
@@ -566,9 +564,9 @@ class CinematicSvgEngine:
       const htmlWords = chunkWords.map((w, idx) => {{
         const globalIdx = chunkStart + idx;
         if (globalIdx === activeWordIdx) {{
-          return '<span style="color:#facc15; display:inline-block; transform:scale(1.14); text-shadow:0 0 14px rgba(250,204,21,0.75); font-weight:900; margin:0 3px;">' + w + '</span>';
+          return '<span style="color:#facc15; display:inline-block; transform:scale(1.14); text-shadow:0 0 14px rgba(250,204,21,0.75); font-weight:900; margin:0 9px;">' + w + '</span>';
         }}
-        return '<span style="margin:0 3px;">' + w + '</span>';
+        return '<span style="display:inline-block; margin:0 5px;">' + w + '</span>';
       }});
 
       subText.innerHTML = htmlWords.join(" ");
@@ -599,9 +597,21 @@ class CinematicSvgEngine:
           bgPlane.style.display = "none";
           if (mapPlane) {{
             mapPlane.style.display = "block";
-            // Continuous smooth 1.0x -> 3.2x push-in centered on Caribbean/Cuba target theater
-            const currentZoom = 1.0 + Math.min(shotProgress * 2.2, 2.2);
-            mapPlane.style.transform = "scale(" + currentZoom.toFixed(3) + ")";
+            // Retrieve target centroid for centered camera pan & zoom
+            let targetX = 720.0;
+            let targetY = 560.0;
+            const svgRoot = mapPlane.querySelector("svg");
+            if (svgRoot && svgRoot.hasAttribute("data-target-x")) {{
+              targetX = parseFloat(svgRoot.getAttribute("data-target-x")) || 720.0;
+              targetY = parseFloat(svgRoot.getAttribute("data-target-y")) || 560.0;
+            }}
+            mapPlane.style.transformOrigin = `${{targetX}}px ${{targetY}}px`;
+            // Smooth quintic push-in 1.0x -> 2.6x keeping target centered
+            const easeP = 6 * Math.pow(shotProgress, 5) - 15 * Math.pow(shotProgress, 4) + 10 * Math.pow(shotProgress, 3);
+            const currentZoom = 1.0 + easeP * 1.6;
+            const panX = (960.0 - targetX) * easeP * 0.45;
+            const panY = (540.0 - targetY) * easeP * 0.45;
+            mapPlane.style.transform = `translate(${{panX.toFixed(1)}}px, ${{panY.toFixed(1)}}px) scale(${{currentZoom.toFixed(3)}})`;
           }}
           cameraRig.style.transform = "scale(1.0) translate(0px, 0px)";
           bgPlane.style.filter = "none";
@@ -621,15 +631,15 @@ class CinematicSvgEngine:
             }}
           }} else if (cam === "data_infographic" || cam === "infographic") {{
             cameraRig.style.transform = "scale(1.22) translate(0px, 35px)";
-            bgPlane.style.filter = "blur(1.5px)";
+            bgPlane.style.filter = "none";
             if (comicBadge) comicBadge.style.display = "none";
           }} else if (cam === "medium") {{
             cameraRig.style.transform = "scale(1.18) translate(-40px, -20px)";
-            bgPlane.style.filter = "blur(3.5px)";
+            bgPlane.style.filter = "none";
             if (comicBadge) comicBadge.style.display = "none";
           }} else {{
             cameraRig.style.transform = "scale(1.0) translate(0px, 0px)";
-            bgPlane.style.filter = "blur(0px)";
+            bgPlane.style.filter = "none";
             if (comicBadge) comicBadge.style.display = "none";
           }}
         }}
@@ -652,7 +662,8 @@ class CinematicSvgEngine:
           leadPose = "talk";
         }}
         actorLead.update(timeSec, leadPose, {{ isSpeaking: isLeadSpeaking }});
-        actorRival.update(timeSec, "idle", {{ isSpeaking: false }});
+        // Secondary actor acts reactively (listens, looks at speaker, strokes chin)
+        actorRival.update(timeSec, "idle", {{ isSpeaking: false, isListening: isLeadSpeaking }});
 
         // Render onto canvas
         actorLead.renderCanvas(ctx);

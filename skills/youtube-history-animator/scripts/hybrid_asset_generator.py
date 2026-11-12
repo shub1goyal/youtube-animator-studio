@@ -36,14 +36,13 @@ class HybridAssetGenerator:
     @classmethod
     def fetch_free_ai_background(cls, scene_prompt, env_type="war_room_bunker", cache_dir=None):
         """
-        Fetches a 100% free keyless 2D illustrated background via Pollinations Flux API.
-        Caches locally as PNG and returns data:image/png;base64,... URI for zero-latency deterministic Playwright rendering.
-        Falls back to None if offline.
+        100% Local / Zero-Network Background Provider.
+        Returns a local cached PNG data URI if one exists, or None to cleanly fall back
+        to the pristine 1080p procedural SVG environment engine.
+        Network synthesis via external APIs is completely disabled to guarantee 100% offline,
+        watermark-free, and deterministic Playwright rendering.
         """
         c_dir = Path(cache_dir) if cache_dir else CACHE_DIR
-        c_dir.mkdir(parents=True, exist_ok=True)
-
-        # Sanitize filename
         safe_key = f"{env_type}_{abs(hash(scene_prompt)) % 100000}"
         png_path = c_dir / f"{safe_key}.png"
 
@@ -55,29 +54,7 @@ class HybridAssetGenerator:
             except Exception:
                 pass
 
-        # Construct stylized graphic novel prompt
-        full_prompt = (
-            f"2D graphic novel animation background illustration, OverSimplified and Kurzgesagt art style, "
-            f"rich atmospheric lighting, detailed interior architectural background, no text, no characters, "
-            f"no people, clean vector composition, {scene_prompt}"
-        )
-        encoded_prompt = urllib.parse.quote(full_prompt)
-        url = f"https://image.pollinations.ai/prompt/{encoded_prompt}?width=1920&height=1080&model=flux&nologo=true&seed=42"
-
-        try:
-            req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
-            with urllib.request.urlopen(req, timeout=12) as resp:
-                if resp.status == 200:
-                    data = resp.read()
-                    if len(data) > 5000:
-                        with open(png_path, "wb") as f:
-                            f.write(data)
-                        b64 = base64.b64encode(data).decode("utf-8")
-                        return f"data:image/png;base64,{b64}"
-        except Exception as e:
-            # Silently fallback to procedural vector SVG
-            pass
-
+        # Clean offline fallback to procedural SVG
         return None
 
     @staticmethod
