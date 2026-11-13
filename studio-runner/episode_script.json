@@ -1,0 +1,73 @@
+{
+  "id": "alexander-porus-elephants",
+  "title": "Jab Alexander Ne Porus Ke Hathi Dekhe: The Jhelum Battle Trick",
+  "fps": 30,
+  "voice": "hi-in-podcaster-2",
+  "model": "gemini-3.8-flash-tts",
+  "style": "energetic, witty Indian podcast storyteller, sharp Hinglish conversational pacing, confident natural cadence, crisp studio mic presence",
+  "beats": [
+    {
+      "id": "b01_hook",
+      "archetype": "STICK_STANDOFF",
+      "chapter": "01 / THE CONFRONTATION",
+      "sfx": "whoosh_soft",
+      "text": "326 BC mein Alexander poori duniya jeet kar India ke border par pahuncha."
+    },
+    {
+      "id": "b02_reveal",
+      "archetype": "STICK_SHOCK",
+      "chapter": "01 / THE CONFRONTATION",
+      "sfx": "thud_double",
+      "text": "Par saamne khada tha King Porus aur uske do sau vishalkay war elephants!"
+    },
+    {
+      "id": "b03_panic",
+      "archetype": "ELEPHANT_SCARE",
+      "chapter": "02 / THE NIGHTMARE",
+      "sfx": "impact_boom",
+      "text": "Greeks ke ghode in hathiyon ki smell aur dahad se hi pagal hokar bhaagne lage."
+    },
+    {
+      "id": "b04_plan",
+      "archetype": "STICK_SCHEME",
+      "chapter": "03 / THE DIVERSION",
+      "sfx": "paper_snap",
+      "text": "Toh Alexander ne lagaya ek masterstroke mind game."
+    },
+    {
+      "id": "b05_noise",
+      "archetype": "NIGHT_FEINT",
+      "chapter": "03 / THE DIVERSION",
+      "sfx": "whoosh_low",
+      "text": "Roz raat ko woh shore machakar Porus ko thakaata raha,"
+    },
+    {
+      "id": "b06_cross",
+      "archetype": "STORM_CROSSING",
+      "chapter": "04 / THE STRIKE",
+      "sfx": "sweep_down",
+      "text": "aur ek toofani raat mein satrah mile door jaakar Jhelum river chupke se paar kar li."
+    },
+    {
+      "id": "b07_encircle",
+      "archetype": "SURROUND_ATTACK",
+      "chapter": "04 / THE STRIKE",
+      "sfx": "lock_slam",
+      "text": "Phir Greek archers ne hathiyon ki aankhon aur mahouts par teer barsa diye."
+    },
+    {
+      "id": "b08_frenzy",
+      "archetype": "ELEPHANT_CHAOS",
+      "chapter": "05 / THE CHAOS",
+      "sfx": "dark_braam",
+      "text": "Ghayal hokar wahi hathi piche mudkar Porus ki apni hi army ko kuchalne lage!"
+    },
+    {
+      "id": "b09_punchline",
+      "archetype": "RESPECT_PUNCHLINE",
+      "chapter": "05 / THE CHAOS",
+      "sfx": "final_chime",
+      "text": "Porus haar kar bhi jita, aur Alexander ki army ne aage badhne se haath khade kar diye."
+    }
+  ]
+}

@@ -1,8 +1,6 @@
 {
   "gemini_api_keys": [
-    "YOUR_GEMINI_API_KEY_1",
-    "YOUR_GEMINI_API_KEY_2"
-  ],
-  "note": "Copy this file to api_keys.json (or set GEMINI_API_KEY environment variable). Never commit api_keys.json."
+    "AIzaSyYourGeminiApiKeyHere1",
+    "AIzaSyYourGeminiApiKeyHere2"
+  ]
 }
-

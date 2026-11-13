@@ -1,0 +1,32 @@
+{
+  "name": "pure-code-explainer-poc",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "studio": "remotion studio src/index.ts",
+    "render": "remotion render src/index.ts CannaeProof out/cannae_30s_proof.mp4 --codec=h264 --crf=18"
+  },
+  "dependencies": {
+    "@iconify-json/game-icons": "^1.2.0",
+    "@iconify-json/lucide": "^1.2.0",
+    "@iconify/react": "^5.2.0",
+    "@remotion/cli": "4.0.286",
+    "@remotion/google-fonts": "4.0.286",
+    "@remotion/paths": "4.0.286",
+    "@remotion/renderer": "4.0.286",
+    "@remotion/shapes": "4.0.286",
+    "d3-geo": "^3.1.1",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "remotion": "4.0.286",
+    "roughjs": "^4.6.6",
+    "topojson-client": "^3.1.0",
+    "world-atlas": "^2.0.2"
+  },
+  "devDependencies": {
+    "@types/d3-geo": "^3.1.0",
+    "@types/react": "18.3.12",
+    "@types/topojson-client": "^3.1.4",
+    "typescript": "^5.7.2"
+  }
+}

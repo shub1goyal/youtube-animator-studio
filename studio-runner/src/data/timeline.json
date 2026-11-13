@@ -1,0 +1,807 @@
+{
+  "id": "alexander-porus-elephants",
+  "title": "Jab Alexander Ne Porus Ke Hathi Dekhe: The Jhelum Battle Trick",
+  "voice": "hi-in-podcaster-2",
+  "fps": 30,
+  "width": 1920,
+  "height": 1080,
+  "totalDurationSec": 40.73,
+  "totalFrames": 1222,
+  "audioSrc": "audio/master.wav",
+  "beats": [
+    {
+      "index": 0,
+      "id": "b01_hook",
+      "archetype": "STICK_STANDOFF",
+      "chapter": "01 / THE CONFRONTATION",
+      "sfx": "whoosh_soft",
+      "text": "326 BC mein Alexander poori duniya jeet kar India ke border par pahuncha.",
+      "startSec": 0.0,
+      "wordStartIdx": 0,
+      "wordEndIdx": 12,
+      "endSec": 5.54,
+      "durationSec": 5.54,
+      "startFrame": 0,
+      "endFrame": 166,
+      "durationFrames": 166
+    },
+    {
+      "index": 1,
+      "id": "b02_reveal",
+      "archetype": "STICK_SHOCK",
+      "chapter": "01 / THE CONFRONTATION",
+      "sfx": "thud_double",
+      "text": "Par saamne khada tha King Porus aur uske do sau vishalkay war elephants!",
+      "startSec": 5.54,
+      "wordStartIdx": 13,
+      "wordEndIdx": 25,
+      "endSec": 10.52,
+      "durationSec": 4.98,
+      "startFrame": 166,
+      "endFrame": 316,
+      "durationFrames": 150
+    },
+    {
+      "index": 2,
+      "id": "b03_panic",
+      "archetype": "ELEPHANT_SCARE",
+      "chapter": "02 / THE NIGHTMARE",
+      "sfx": "impact_boom",
+      "text": "Greeks ke ghode in hathiyon ki smell aur dahad se hi pagal hokar bhaagne lage.",
+      "startSec": 10.52,
+      "wordStartIdx": 26,
+      "wordEndIdx": 40,
+      "endSec": 15.7,
+      "durationSec": 5.18,
+      "startFrame": 316,
+      "endFrame": 471,
+      "durationFrames": 155
+    },
+    {
+      "index": 3,
+      "id": "b04_plan",
+      "archetype": "STICK_SCHEME",
+      "chapter": "03 / THE DIVERSION",
+      "sfx": "paper_snap",
+      "text": "Toh Alexander ne lagaya ek masterstroke mind game.",
+      "startSec": 15.7,
+      "wordStartIdx": 41,
+      "wordEndIdx": 48,
+      "endSec": 18.64,
+      "durationSec": 2.94,
+      "startFrame": 471,
+      "endFrame": 559,
+      "durationFrames": 88
+    },
+    {
+      "index": 4,
+      "id": "b05_noise",
+      "archetype": "NIGHT_FEINT",
+      "chapter": "03 / THE DIVERSION",
+      "sfx": "whoosh_low",
+      "text": "Roz raat ko woh shore machakar Porus ko thakaata raha,",
+      "startSec": 18.64,
+      "wordStartIdx": 49,
+      "wordEndIdx": 58,
+      "endSec": 21.84,
+      "durationSec": 3.2,
+      "startFrame": 559,
+      "endFrame": 655,
+      "durationFrames": 96
+    },
+    {
+      "index": 5,
+      "id": "b06_cross",
+      "archetype": "STORM_CROSSING",
+      "chapter": "04 / THE STRIKE",
+      "sfx": "sweep_down",
+      "text": "aur ek toofani raat mein satrah mile door jaakar Jhelum river chupke se paar kar li.",
+      "startSec": 21.84,
+      "wordStartIdx": 59,
+      "wordEndIdx": 74,
+      "endSec": 27.36,
+      "durationSec": 5.52,
+      "startFrame": 655,
+      "endFrame": 821,
+      "durationFrames": 166
+    },
+    {
+      "index": 6,
+      "id": "b07_encircle",
+      "archetype": "SURROUND_ATTACK",
+      "chapter": "04 / THE STRIKE",
+      "sfx": "lock_slam",
+      "text": "Phir Greek archers ne hathiyon ki aankhon aur mahouts par teer barsa diye.",
+      "startSec": 27.36,
+      "wordStartIdx": 75,
+      "wordEndIdx": 87,
+      "endSec": 33.38,
+      "durationSec": 6.02,
+      "startFrame": 821,
+      "endFrame": 1001,
+      "durationFrames": 180
+    },
+    {
+      "index": 7,
+      "id": "b08_frenzy",
+      "archetype": "ELEPHANT_CHAOS",
+      "chapter": "05 / THE CHAOS",
+      "sfx": "dark_braam",
+      "text": "Ghayal hokar wahi hathi piche mudkar Porus ki apni hi army ko kuchalne lage!",
+      "startSec": 33.38,
+      "wordStartIdx": 88,
+      "wordEndIdx": 101,
+      "endSec": 38.02,
+      "durationSec": 4.64,
+      "startFrame": 1001,
+      "endFrame": 1141,
+      "durationFrames": 140
+    },
+    {
+      "index": 8,
+      "id": "b09_punchline",
+      "archetype": "RESPECT_PUNCHLINE",
+      "chapter": "05 / THE CHAOS",
+      "sfx": "final_chime",
+      "text": "Porus haar kar bhi jita, aur Alexander ki army ne aage badhne se haath khade kar diye.",
+      "startSec": 38.02,
+      "wordStartIdx": 102,
+      "wordEndIdx": 107,
+      "endSec": 40.73,
+      "durationSec": 2.71,
+      "startFrame": 1141,
+      "endFrame": 1222,
+      "durationFrames": 81
+    }
+  ],
+  "words": [
+    {
+      "text": "326",
+      "norm": "326",
+      "start": 0.0,
+      "end": 0.94
+    },
+    {
+      "text": "BC",
+      "norm": "bc",
+      "start": 0.94,
+      "end": 1.34
+    },
+    {
+      "text": "\u0645\u06cc\u06ba",
+      "norm": "\u0645\u06cc\u06ba",
+      "start": 1.34,
+      "end": 1.54
+    },
+    {
+      "text": "Aleksander",
+      "norm": "aleksander",
+      "start": 1.54,
+      "end": 2.2
+    },
+    {
+      "text": "Puri",
+      "norm": "puri",
+      "start": 2.2,
+      "end": 2.66
+    },
+    {
+      "text": "Dunea",
+      "norm": "dunea",
+      "start": 2.66,
+      "end": 3.04
+    },
+    {
+      "text": "jeetkar",
+      "norm": "jeetkar",
+      "start": 3.04,
+      "end": 3.36
+    },
+    {
+      "text": "India",
+      "norm": "india",
+      "start": 3.36,
+      "end": 3.72
+    },
+    {
+      "text": "ke",
+      "norm": "ke",
+      "start": 3.72,
+      "end": 3.88
+    },
+    {
+      "text": "border",
+      "norm": "border",
+      "start": 3.88,
+      "end": 4.08
+    },
+    {
+      "text": "purpacha",
+      "norm": "purpacha",
+      "start": 4.08,
+      "end": 4.58
+    },
+    {
+      "text": "\u067e\u0631",
+      "norm": "\u067e\u0631",
+      "start": 4.58,
+      "end": 5.16
+    },
+    {
+      "text": "\u0633\u0627\u0645\u0646\u06d2",
+      "norm": "\u0633\u0627\u0645\u0646\u06d2",
+      "start": 5.16,
+      "end": 5.58
+    },
+    {
+      "text": "\u06a9\u06be\u0691\u0627",
+      "norm": "\u06a9\u06be\u0691\u0627",
+      "start": 5.58,
+      "end": 5.76
+    },
+    {
+      "text": "\u062a\u06be\u0627",
+      "norm": "\u062a\u06be\u0627",
+      "start": 5.76,
+      "end": 6.0
+    },
+    {
+      "text": "Kink",
+      "norm": "kink",
+      "start": 6.0,
+      "end": 6.34
+    },
+    {
+      "text": "Porus",
+      "norm": "porus",
+      "start": 6.34,
+      "end": 6.74
+    },
+    {
+      "text": "\u0627\u0648\u0631",
+      "norm": "\u0627\u0648\u0631",
+      "start": 6.74,
+      "end": 7.16
+    },
+    {
+      "text": "\u0627\u0633",
+      "norm": "\u0627\u0633",
+      "start": 7.16,
+      "end": 7.3
+    },
+    {
+      "text": "\u06a9\u06d2",
+      "norm": "\u06a9\u06d2",
+      "start": 7.3,
+      "end": 7.42
+    },
+    {
+      "text": "200",
+      "norm": "200",
+      "start": 7.42,
+      "end": 7.8
+    },
+    {
+      "text": "Vishal",
+      "norm": "vishal",
+      "start": 7.8,
+      "end": 8.36
+    },
+    {
+      "text": "Kae",
+      "norm": "kae",
+      "start": 8.36,
+      "end": 8.6
+    },
+    {
+      "text": "War",
+      "norm": "war",
+      "start": 8.6,
+      "end": 8.86
+    },
+    {
+      "text": "Elephants",
+      "norm": "elephants",
+      "start": 8.86,
+      "end": 9.22
+    },
+    {
+      "text": "Greaks",
+      "norm": "greaks",
+      "start": 9.9,
+      "end": 10.56
+    },
+    {
+      "text": "ke",
+      "norm": "ke",
+      "start": 10.56,
+      "end": 10.72
+    },
+    {
+      "text": "Ghodain",
+      "norm": "ghodain",
+      "start": 10.72,
+      "end": 11.12
+    },
+    {
+      "text": "hatiwaki",
+      "norm": "hatiwaki",
+      "start": 11.12,
+      "end": 11.64
+    },
+    {
+      "text": "smell",
+      "norm": "smell",
+      "start": 11.64,
+      "end": 11.92
+    },
+    {
+      "text": "and",
+      "norm": "and",
+      "start": 11.92,
+      "end": 12.14
+    },
+    {
+      "text": "dhar",
+      "norm": "dhar",
+      "start": 12.14,
+      "end": 12.4
+    },
+    {
+      "text": "sahi",
+      "norm": "sahi",
+      "start": 12.4,
+      "end": 12.76
+    },
+    {
+      "text": "pagalokar",
+      "norm": "pagalokar",
+      "start": 12.76,
+      "end": 13.3
+    },
+    {
+      "text": "bhagne",
+      "norm": "bhagne",
+      "start": 13.3,
+      "end": 13.58
+    },
+    {
+      "text": "lage",
+      "norm": "lage",
+      "start": 13.58,
+      "end": 13.8
+    },
+    {
+      "text": "\u062a\u0648",
+      "norm": "\u062a\u0648",
+      "start": 13.8,
+      "end": 14.64
+    },
+    {
+      "text": "Aleksander",
+      "norm": "aleksander",
+      "start": 14.64,
+      "end": 15.14
+    },
+    {
+      "text": "ne",
+      "norm": "ne",
+      "start": 15.14,
+      "end": 15.3
+    },
+    {
+      "text": "legai",
+      "norm": "legai",
+      "start": 15.3,
+      "end": 15.54
+    },
+    {
+      "text": "ek",
+      "norm": "ek",
+      "start": 15.54,
+      "end": 15.74
+    },
+    {
+      "text": "master",
+      "norm": "master",
+      "start": 15.74,
+      "end": 16.16
+    },
+    {
+      "text": "stroke",
+      "norm": "stroke",
+      "start": 16.16,
+      "end": 16.54
+    },
+    {
+      "text": "mine",
+      "norm": "mine",
+      "start": 16.54,
+      "end": 16.78
+    },
+    {
+      "text": "game",
+      "norm": "game",
+      "start": 16.78,
+      "end": 17.06
+    },
+    {
+      "text": "Roze",
+      "norm": "roze",
+      "start": 17.06,
+      "end": 18.2
+    },
+    {
+      "text": "Rat",
+      "norm": "rat",
+      "start": 18.2,
+      "end": 18.36
+    },
+    {
+      "text": "ko",
+      "norm": "ko",
+      "start": 18.36,
+      "end": 18.56
+    },
+    {
+      "text": "o",
+      "norm": "o",
+      "start": 18.56,
+      "end": 18.68
+    },
+    {
+      "text": "Shor",
+      "norm": "shor",
+      "start": 18.68,
+      "end": 18.96
+    },
+    {
+      "text": "Machakar",
+      "norm": "machakar",
+      "start": 18.96,
+      "end": 19.38
+    },
+    {
+      "text": "Porus",
+      "norm": "porus",
+      "start": 19.38,
+      "end": 19.72
+    },
+    {
+      "text": "ko",
+      "norm": "ko",
+      "start": 19.72,
+      "end": 19.84
+    },
+    {
+      "text": "thakata",
+      "norm": "thakata",
+      "start": 19.84,
+      "end": 20.26
+    },
+    {
+      "text": "raha",
+      "norm": "raha",
+      "start": 20.26,
+      "end": 20.82
+    },
+    {
+      "text": "aur",
+      "norm": "aur",
+      "start": 20.82,
+      "end": 21.06
+    },
+    {
+      "text": "ek",
+      "norm": "ek",
+      "start": 21.06,
+      "end": 21.2
+    },
+    {
+      "text": "tufani",
+      "norm": "tufani",
+      "start": 21.2,
+      "end": 21.64
+    },
+    {
+      "text": "rat",
+      "norm": "rat",
+      "start": 21.64,
+      "end": 21.88
+    },
+    {
+      "text": "me",
+      "norm": "me",
+      "start": 21.88,
+      "end": 22.1
+    },
+    {
+      "text": "satra",
+      "norm": "satra",
+      "start": 22.1,
+      "end": 22.58
+    },
+    {
+      "text": "meel",
+      "norm": "meel",
+      "start": 22.58,
+      "end": 22.92
+    },
+    {
+      "text": "dhuur",
+      "norm": "dhuur",
+      "start": 22.92,
+      "end": 23.2
+    },
+    {
+      "text": "jaakar",
+      "norm": "jaakar",
+      "start": 23.2,
+      "end": 23.56
+    },
+    {
+      "text": "jhelam",
+      "norm": "jhelam",
+      "start": 23.56,
+      "end": 23.94
+    },
+    {
+      "text": "river",
+      "norm": "river",
+      "start": 23.94,
+      "end": 24.08
+    },
+    {
+      "text": "chubke",
+      "norm": "chubke",
+      "start": 24.08,
+      "end": 24.48
+    },
+    {
+      "text": "se",
+      "norm": "se",
+      "start": 24.48,
+      "end": 24.6
+    },
+    {
+      "text": "par",
+      "norm": "par",
+      "start": 24.6,
+      "end": 24.78
+    },
+    {
+      "text": "karli",
+      "norm": "karli",
+      "start": 24.78,
+      "end": 25.1
+    },
+    {
+      "text": "\u067e\u06be\u0631",
+      "norm": "\u067e\u06be\u0631",
+      "start": 25.82,
+      "end": 26.12
+    },
+    {
+      "text": "Greak",
+      "norm": "greak",
+      "start": 26.12,
+      "end": 26.42
+    },
+    {
+      "text": "Archa",
+      "norm": "archa",
+      "start": 26.42,
+      "end": 26.66
+    },
+    {
+      "text": "zne",
+      "norm": "zne",
+      "start": 26.66,
+      "end": 26.9
+    },
+    {
+      "text": "hatiwaki",
+      "norm": "hatiwaki",
+      "start": 26.9,
+      "end": 27.4
+    },
+    {
+      "text": "aakon",
+      "norm": "aakon",
+      "start": 27.4,
+      "end": 27.92
+    },
+    {
+      "text": "aur",
+      "norm": "aur",
+      "start": 27.92,
+      "end": 28.08
+    },
+    {
+      "text": "mahavatopar",
+      "norm": "mahavatopar",
+      "start": 28.08,
+      "end": 28.72
+    },
+    {
+      "text": "teer",
+      "norm": "teer",
+      "start": 28.72,
+      "end": 29.02
+    },
+    {
+      "text": "barsadhe",
+      "norm": "barsadhe",
+      "start": 29.02,
+      "end": 29.4
+    },
+    {
+      "text": "Ghail",
+      "norm": "ghail",
+      "start": 29.4,
+      "end": 30.48
+    },
+    {
+      "text": "hokar",
+      "norm": "hokar",
+      "start": 30.48,
+      "end": 30.78
+    },
+    {
+      "text": "vahi",
+      "norm": "vahi",
+      "start": 30.78,
+      "end": 31.42
+    },
+    {
+      "text": "hati",
+      "norm": "hati",
+      "start": 31.42,
+      "end": 31.68
+    },
+    {
+      "text": "peachamurkar",
+      "norm": "peachamurkar",
+      "start": 31.68,
+      "end": 32.32
+    },
+    {
+      "text": "porus",
+      "norm": "porus",
+      "start": 32.32,
+      "end": 32.76
+    },
+    {
+      "text": "ki",
+      "norm": "ki",
+      "start": 32.76,
+      "end": 32.9
+    },
+    {
+      "text": "apnei",
+      "norm": "apnei",
+      "start": 32.9,
+      "end": 33.42
+    },
+    {
+      "text": "armi",
+      "norm": "armi",
+      "start": 33.42,
+      "end": 33.6
+    },
+    {
+      "text": "ko",
+      "norm": "ko",
+      "start": 33.6,
+      "end": 33.72
+    },
+    {
+      "text": "ko",
+      "norm": "ko",
+      "start": 33.72,
+      "end": 33.88
+    },
+    {
+      "text": "chalne",
+      "norm": "chalne",
+      "start": 33.88,
+      "end": 34.08
+    },
+    {
+      "text": "lage",
+      "norm": "lage",
+      "start": 34.08,
+      "end": 34.26
+    },
+    {
+      "text": "Porus",
+      "norm": "porus",
+      "start": 34.94,
+      "end": 35.5
+    },
+    {
+      "text": "hargar",
+      "norm": "hargar",
+      "start": 35.5,
+      "end": 35.9
+    },
+    {
+      "text": "vi",
+      "norm": "vi",
+      "start": 35.9,
+      "end": 36.06
+    },
+    {
+      "text": "jita",
+      "norm": "jita",
+      "start": 36.06,
+      "end": 36.34
+    },
+    {
+      "text": "aur",
+      "norm": "aur",
+      "start": 36.34,
+      "end": 37.06
+    },
+    {
+      "text": "Aleksander",
+      "norm": "aleksander",
+      "start": 37.06,
+      "end": 37.48
+    },
+    {
+      "text": "ki",
+      "norm": "ki",
+      "start": 37.48,
+      "end": 37.68
+    },
+    {
+      "text": "armi",
+      "norm": "armi",
+      "start": 37.68,
+      "end": 37.94
+    },
+    {
+      "text": "ne",
+      "norm": "ne",
+      "start": 37.94,
+      "end": 38.06
+    },
+    {
+      "text": "aage",
+      "norm": "aage",
+      "start": 38.06,
+      "end": 38.42
+    },
+    {
+      "text": "baadne",
+      "norm": "baadne",
+      "start": 38.42,
+      "end": 38.7
+    },
+    {
+      "text": "se",
+      "norm": "se",
+      "start": 38.7,
+      "end": 38.84
+    },
+    {
+      "text": "hati",
+      "norm": "hati",
+      "start": 38.84,
+      "end": 39.12
+    },
+    {
+      "text": "khar",
+      "norm": "khar",
+      "start": 39.12,
+      "end": 39.3
+    },
+    {
+      "text": "dee",
+      "norm": "dee",
+      "start": 39.3,
+      "end": 39.58
+    }
+  ]
+}
